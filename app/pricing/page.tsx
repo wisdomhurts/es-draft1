@@ -93,7 +93,7 @@ function ServiceBlock({ title, label, services }: { title: string; label: string
 
 export default function PricingPage() {
   return (
-    <div style={{ backgroundColor: '#FFFFFF', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', WebkitFontSmoothing: 'antialiased' }}>
+    <div style={{ width: '100%', maxWidth: '1440px' }}>
       <Nav />
       {/* Header */}
       <div style={{ backgroundColor: '#173559', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: '16px', paddingBottom: '64px', paddingLeft: '80px', paddingRight: '80px', paddingTop: '80px', width: '1440px' }}>

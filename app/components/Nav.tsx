@@ -205,7 +205,7 @@ export default function Nav() {
   })
 
   return (
-    <div style={{ alignItems: 'center', backgroundColor: bg, borderBottom: `1px solid ${borderBottom}`, borderTop: `4px solid ${borderTop}`, boxSizing: 'border-box', display: 'flex', flexShrink: 0, height: '68px', justifyContent: 'space-between', paddingInline: '80px', position: 'relative', width: '1440px', zIndex: 50 }}>
+    <div style={{ alignItems: 'center', backgroundColor: bg, borderBottom: `1px solid ${borderBottom}`, borderTop: `4px solid ${borderTop}`, boxSizing: 'border-box', display: 'flex', flexShrink: 0, height: '68px', justifyContent: 'space-between', paddingInline: '80px', position: 'relative', width: '100%', maxWidth: '1440px', zIndex: 50 }}>
 
       {/* Logo */}
       <Link href="/" style={{ alignItems: 'center', display: 'flex', gap: '12px', textDecoration: 'none' }}>
@@ -267,9 +267,6 @@ export default function Nav() {
         </div>
       </Link>
 
-      <style>{`
-        .nav-mega-link:hover { background-color: #F5F3F0 !important; }
-      `}</style>
     </div>
   )
 }
