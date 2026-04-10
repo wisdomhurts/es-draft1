@@ -2,26 +2,165 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { NavigationMenu } from '@base-ui/react/navigation-menu'
+import { useState } from 'react'
 
-const mapItems = [
-  { label: 'Locators', desc: 'Site location relative to infrastructure & geology', href: '/maps' },
-  { label: 'Geological', desc: 'Surface geology with formation boundaries & lithology', href: '/maps' },
-  { label: 'Sections', desc: 'Cross-sections with mineralization & drill intercepts', href: '/maps' },
-  { label: 'Geophysical', desc: 'Magnetic, gravity & EM survey visualizations', href: '/maps' },
-  { label: 'Area Play', desc: 'Regional-scale district potential maps', href: '/maps' },
-  { label: 'Geochemical', desc: 'Soil, rock & sediment anomaly heat maps', href: '/maps' },
-  { label: '3D Maps', desc: 'Isometric renders of topography & mineralization', href: '/maps' },
-  { label: 'Conceptual', desc: 'Interpretive deposit models for investor narrative', href: '/maps' },
+type MegaKey = 'maps' | 'websites' | 'presentations' | 'design' | 'crm' | 'socials'
+
+const leftItems: { key: MegaKey; label: string; desc: string }[] = [
+  { key: 'maps',          label: 'Maps',          desc: 'Spatial & geological visualization' },
+  { key: 'websites',      label: 'Websites',      desc: 'Investor-grade digital presence' },
+  { key: 'presentations', label: 'Presentations', desc: 'Decks, reports & conference materials' },
+  { key: 'design',        label: 'Design',        desc: 'Logo, identity & visual systems' },
+  { key: 'crm',           label: 'CRM',           desc: 'Investor relations platform' },
+  { key: 'socials',       label: 'Socials',       desc: 'Social media content & strategy' },
 ]
 
-const serviceItems = [
-  { label: 'Websites', desc: 'Investor-grade web presence', href: '/websites' },
-  { label: 'Presentations', desc: 'Decks, reports & conference materials', href: '/presentations' },
-  { label: 'Movies', desc: '3D flyovers, geological animations & site films', href: '/movies' },
-  { label: 'Branding', desc: 'Logo, identity & visual systems', href: '/pricing' },
-  { label: 'CRM', desc: 'Investor relations platform', href: '/pricing' },
-  { label: 'Socials', desc: 'Social media content & management', href: '/pricing' },
+const mapsItems = [
+  { label: 'Locators',    desc: 'Site location relative to infrastructure & regional geology' },
+  { label: 'Area Play',   desc: 'Regional district potential for institutional investors' },
+  { label: 'Property',    desc: 'Detailed property extent, claims & tenure maps' },
+  { label: 'Geological',  desc: 'Surface geology with formation boundaries & lithology' },
+  { label: 'Geophysical', desc: 'Magnetic, gravity & EM survey visualizations' },
+  { label: 'Geochemical', desc: 'Soil, rock & sediment anomaly heat maps' },
+  { label: 'Sections',    desc: 'Cross-sections showing mineralization & drill intercepts' },
+  { label: '3D',          desc: 'Isometric topography & mineralization envelope renders' },
 ]
+
+const websiteSections = [
+  { heading: 'Webflow', desc: 'Custom-designed, visually-editable sites. Fast, modern, and built for investor relations teams who want to own their updates.' },
+  { heading: 'WordPress', desc: 'Flexible CMS-driven builds with full content control. Ideal for news-heavy IR portals and companies with active disclosure cycles.' },
+]
+
+const websiteProcess = [
+  ['Discovery',  'Goals, brand assets, content review'],
+  ['Design',     'Full-page layouts for feedback'],
+  ['Build',      'Development with two revision rounds'],
+  ['Launch',     'Go live with training & ongoing support'],
+]
+
+const presentationItems = [
+  { label: 'Investor Decks',        desc: 'NI 43-101-aligned narrative decks built for financings and AGMs', href: '/presentations' },
+  { label: 'Technical Reports',     desc: 'Figures, charts and tables designed to meet regulatory publication standards', href: '/presentations' },
+  { label: 'Conference Materials',  desc: 'Booth banners, factsheets and one-pagers for PDAC, AME and beyond', href: '/presentations' },
+]
+
+const designItems = [
+  { label: 'Logo & Brand Creation', desc: 'Visual identity systems built for resource companies', href: '/pricing' },
+  { label: 'Visual Identity',       desc: 'Color, typography and brand guideline documents', href: '/pricing' },
+  { label: 'Event Materials',       desc: 'Booth graphics, signage and trade show collateral', href: '/pricing' },
+  { label: 'Individual Graphics',   desc: 'One-off illustrations, icons and infographics', href: '/pricing' },
+]
+
+const crmItems = [
+  { label: 'Investor Relations Platform', desc: 'Centralized contact management for your shareholder base', href: '/pricing' },
+  { label: 'Campaign Tools',              desc: 'Email outreach, newsletters and investor updates', href: '/pricing' },
+  { label: 'Analytics',                   desc: 'Track engagement, opens and investor activity over time', href: '/pricing' },
+]
+
+const socialItems = [
+  { label: 'Content Creation',        desc: 'Platform-native posts, graphics and video clips', href: '/pricing' },
+  { label: 'Social Media Management', desc: 'Scheduling, publishing and community management', href: '/pricing' },
+  { label: 'Platform Strategy',       desc: 'Channel mix, audience targeting and growth plans', href: '/pricing' },
+]
+
+const rightItems: Record<string, { label: string; desc: string; href: string }[]> = {
+  presentations: presentationItems,
+  design:        designItems,
+  crm:           crmItems,
+  socials:       socialItems,
+}
+
+function MegaMenuContent() {
+  const [active, setActive] = useState<MegaKey>('maps')
+
+  return (
+    <div style={{ display: 'flex', width: '700px' }}>
+      {/* Left sidebar */}
+      <div style={{ backgroundColor: '#F5F3F0', display: 'flex', flexDirection: 'column', gap: '3px', padding: '10px', width: '196px' }}>
+        {leftItems.map(({ key, label, desc }) => (
+          <div
+            key={key}
+            onMouseEnter={() => setActive(key)}
+            style={{
+              backgroundColor: active === key ? '#FFFFFF' : 'transparent',
+              borderRadius: '8px',
+              boxShadow: active === key ? '0 1px 4px rgba(0,0,0,0.07)' : 'none',
+              cursor: 'default',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2px',
+              padding: '11px 14px',
+              transition: 'background 0.1s',
+            }}
+          >
+            <div style={{ color: '#173559', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '14px', fontWeight: 700, lineHeight: '1.3' }}>{label}</div>
+            <div style={{ color: '#999999', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '12px', lineHeight: '1.4' }}>{desc}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Right panel */}
+      <div style={{ flex: 1, padding: '24px 28px' }}>
+
+        {/* Maps */}
+        {active === 'maps' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+            <div style={{ display: 'grid', gap: '2px', gridTemplateColumns: '1fr 1fr' }}>
+              {mapsItems.map(({ label, desc }) => (
+                <Link key={label} href="/maps" className="nav-mega-link" style={{ borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '2px', padding: '10px 12px', textDecoration: 'none' }}>
+                  <span style={{ color: '#173559', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '13px', fontWeight: 600 }}>{label}</span>
+                  <span style={{ color: '#999999', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '11px', lineHeight: '1.45' }}>{desc}</span>
+                </Link>
+              ))}
+            </div>
+            <Link href="/maps" style={{ borderTop: '1px solid #EEEEEE', color: '#9ECDE4', display: 'block', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '12px', fontWeight: 600, marginTop: '10px', paddingTop: '12px', textDecoration: 'none' }}>
+              View all map types →
+            </Link>
+          </div>
+        )}
+
+        {/* Websites */}
+        {active === 'websites' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            {websiteSections.map(({ heading, desc }) => (
+              <Link key={heading} href="/websites" className="nav-mega-link" style={{ borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '4px', padding: '10px 12px', textDecoration: 'none' }}>
+                <span style={{ color: '#173559', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '15px', fontWeight: 700 }}>{heading}</span>
+                <span style={{ color: '#555555', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '13px', lineHeight: '1.6' }}>{desc}</span>
+              </Link>
+            ))}
+            <div style={{ borderTop: '1px solid #EEEEEE', paddingTop: '16px' }}>
+              <div style={{ color: '#173559', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '13px', fontWeight: 700, marginBottom: '10px' }}>Our Process</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                {websiteProcess.map(([step, desc], i) => (
+                  <div key={step} style={{ alignItems: 'baseline', display: 'flex', gap: '10px' }}>
+                    <div style={{ color: '#CFE1E9', flexShrink: 0, fontFamily: '"Cormorant Garamond",system-ui,sans-serif', fontSize: '15px', fontWeight: 500, width: '22px' }}>0{i + 1}</div>
+                    <div style={{ fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '12px' }}>
+                      <span style={{ color: '#173559', fontWeight: 600 }}>{step}</span>
+                      <span style={{ color: '#999999' }}> — {desc}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Generic list panels */}
+        {['presentations', 'design', 'crm', 'socials'].includes(active) && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+            {rightItems[active].map(({ label, desc, href }) => (
+              <Link key={label} href={href} className="nav-mega-link" style={{ borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '3px', padding: '11px 14px', textDecoration: 'none' }}>
+                <span style={{ color: '#173559', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '14px', fontWeight: 700 }}>{label}</span>
+                <span style={{ color: '#555555', fontFamily: '"DM Sans",system-ui,sans-serif', fontSize: '13px', lineHeight: '1.55' }}>{desc}</span>
+              </Link>
+            ))}
+          </div>
+        )}
+
+      </div>
+    </div>
+  )
+}
 
 export default function Nav() {
   const path = usePathname()
@@ -32,8 +171,7 @@ export default function Nav() {
   const logoColor = isDark ? '#FFFFFF' : '#173559'
   const textColor = isDark ? 'rgba(255,255,255,0.7)' : '#444444'
 
-  const servicePages = ['/websites', '/presentations', '/movies', '/pricing']
-  const mapsActive = path === '/maps'
+  const servicePages = ['/maps', '/websites', '/presentations', '/movies', '/pricing']
   const servicesActive = servicePages.includes(path)
 
   const triggerStyle = (active: boolean): React.CSSProperties => ({
@@ -67,7 +205,8 @@ export default function Nav() {
   })
 
   return (
-    <div style={{ alignItems: 'center', backgroundColor: bg, borderBottom: `1px solid ${borderBottom}`, borderTop: `4px solid ${borderTop}`, boxSizing: 'border-box', display: 'flex', flexShrink: 0, height: '68px', justifyContent: 'space-between', paddingInline: '80px', width: '1440px', position: 'relative', zIndex: 50 }}>
+    <div style={{ alignItems: 'center', backgroundColor: bg, borderBottom: `1px solid ${borderBottom}`, borderTop: `4px solid ${borderTop}`, boxSizing: 'border-box', display: 'flex', flexShrink: 0, height: '68px', justifyContent: 'space-between', paddingInline: '80px', position: 'relative', width: '1440px', zIndex: 50 }}>
+
       {/* Logo */}
       <Link href="/" style={{ alignItems: 'center', display: 'flex', gap: '12px', textDecoration: 'none' }}>
         <svg width="44" height="44" viewBox="0 0 124.63 124.63" xmlns="http://www.w3.org/2000/svg">
@@ -85,54 +224,25 @@ export default function Nav() {
         <div style={{ color: logoColor, fontFamily: '"DM Sans", system-ui, sans-serif', fontSize: '18px', fontWeight: 600, letterSpacing: '-0.3px' }}>Exploration Sites</div>
       </Link>
 
-      {/* Nav */}
+      {/* Navigation */}
       <NavigationMenu.Root>
         <NavigationMenu.List style={{ alignItems: 'center', display: 'flex', gap: '4px', listStyle: 'none', margin: 0, padding: 0 }}>
 
-          {/* Maps */}
-          <NavigationMenu.Item>
-            <NavigationMenu.Trigger style={triggerStyle(mapsActive)}>
-              Maps
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M1 1L5 5L9 1" stroke={mapsActive ? (isDark ? '#9ECDE4' : '#173559') : '#9ECDE4'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content>
-              <div style={{ display: 'grid', gap: '2px', gridTemplateColumns: '1fr 1fr', padding: '8px', width: '480px' }}>
-                {mapItems.map(({ label, desc, href }) => (
-                  <NavigationMenu.Link key={label} render={<Link href={href} />} closeOnClick style={{ borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '2px', padding: '12px 14px', textDecoration: 'none' }}
-                    className="nav-dropdown-item">
-                    <span style={{ color: '#173559', fontFamily: '"DM Sans", system-ui, sans-serif', fontSize: '13px', fontWeight: 600 }}>{label}</span>
-                    <span style={{ color: '#888888', fontFamily: '"DM Sans", system-ui, sans-serif', fontSize: '12px', lineHeight: '1.5' }}>{desc}</span>
-                  </NavigationMenu.Link>
-                ))}
-              </div>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-
-          {/* Services */}
+          {/* Services mega menu */}
           <NavigationMenu.Item>
             <NavigationMenu.Trigger style={triggerStyle(servicesActive)}>
               Services
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ flexShrink: 0 }}>
-                <path d="M1 1L5 5L9 1" stroke={servicesActive ? (isDark ? '#9ECDE4' : '#173559') : '#9ECDE4'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M1 1L5 5L9 1" stroke="#9ECDE4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', padding: '8px', width: '300px' }}>
-                {serviceItems.map(({ label, desc, href }) => (
-                  <NavigationMenu.Link key={label} render={<Link href={href} />} closeOnClick style={{ borderRadius: '6px', display: 'flex', flexDirection: 'column', gap: '2px', padding: '12px 14px', textDecoration: 'none' }}
-                    className="nav-dropdown-item">
-                    <span style={{ color: '#173559', fontFamily: '"DM Sans", system-ui, sans-serif', fontSize: '13px', fontWeight: 600 }}>{label}</span>
-                    <span style={{ color: '#888888', fontFamily: '"DM Sans", system-ui, sans-serif', fontSize: '12px', lineHeight: '1.5' }}>{desc}</span>
-                  </NavigationMenu.Link>
-                ))}
-              </div>
+              <MegaMenuContent />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
 
           {/* Static links */}
-          {[['Clients', '/clients'], ['Pricing', '/pricing'], ['Team', '/team'], ['Contact', '/contact']].map(([label, href]) => (
+          {([['Clients', '/clients'], ['Pricing', '/pricing'], ['Team', '/team'], ['Contact', '/contact']] as const).map(([label, href]) => (
             <NavigationMenu.Item key={label}>
               <NavigationMenu.Link render={<Link href={href} />} style={linkStyle(path === href)}>
                 {label}
@@ -143,7 +253,7 @@ export default function Nav() {
 
         <NavigationMenu.Portal>
           <NavigationMenu.Positioner sideOffset={8} style={{ zIndex: 100 }}>
-            <NavigationMenu.Popup style={{ backgroundColor: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '8px', boxShadow: '0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+            <NavigationMenu.Popup style={{ backgroundColor: '#FFFFFF', border: '1px solid #E8E8E8', borderRadius: '10px', boxShadow: '0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
               <NavigationMenu.Viewport />
             </NavigationMenu.Popup>
           </NavigationMenu.Positioner>
@@ -158,7 +268,7 @@ export default function Nav() {
       </Link>
 
       <style>{`
-        .nav-dropdown-item:hover { background-color: #F5F3F0 !important; }
+        .nav-mega-link:hover { background-color: #F5F3F0 !important; }
       `}</style>
     </div>
   )
