@@ -1,0 +1,14 @@
+<div class="hero-globe">
+  <canvas class="hero-globe-canvas" aria-hidden="true"></canvas>
+  <a class="hero-globe-pin" href="contact.html" data-lat="48.4284" data-lon="-123.3656">
+    <span class="hero-globe-pin-dot" aria-hidden="true"></span>
+    <span class="hero-globe-pin-tooltip">Victoria BC Corporate Head Office</span>
+  </a>
+  {% for p in projects %}
+  <a class="hero-globe-pin hero-globe-pin--ore" href="clients.html" data-lat="{{ p.lat }}" data-lon="{{ p.lon }}">
+    <span class="hero-globe-pin-dot" aria-hidden="true"></span>
+    <span class="hero-globe-pin-tooltip">{{ p.name }}</span>
+  </a>
+  {% endfor %}
+</div>
+<script type="module" src="/assets/hero-globe.js"></script>
