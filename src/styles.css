@@ -660,7 +660,7 @@
     }
 
     .hero-globe {
-      padding-right: 60px;
+      padding-right: 0;
     }
 
     .hero-globe-canvas {
@@ -669,7 +669,7 @@
       height: 720px;
       max-width: 52vw;
       max-height: 92vh;
-      transform: translateX(-280px);
+      transform: translateX(60px);
       opacity: 0;
       transition: opacity 600ms ease-out;
       /* Soften the silhouette — outer ~24% of the canvas fades into the page. */

@@ -44,11 +44,11 @@ const CAMERA_Z       = 4.6;
 const MIN_DISTANCE   = 2.2;
 const MAX_DISTANCE   = 8.0;
 
-// Auto-rotate (~50s per revolution). Negative = globe spins west→east
+// Auto-rotate (~120s per revolution). Negative = globe spins west→east
 // (real Earth direction from a northern viewer), so continents move left→right
 // across the visible disc.
-const AUTO_ROTATE_SPEED = -1.2;
-const HOVER_SLOW_FACTOR = 0.1;   // slow to 10% of base speed when a pin is highlighted
+const AUTO_ROTATE_SPEED = -0.5;
+const HOVER_SLOW_FACTOR = 0.04;  // slow to 4% of base speed when a pin is highlighted
 const ROTATE_SPEED_LERP = 0.08;  // smoothing factor — keeps the transition unnoticeable
 
 // Mouse repulsion
