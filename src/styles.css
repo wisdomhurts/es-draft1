@@ -1845,6 +1845,21 @@
     .form-status.is-ok { color: var(--moss); }
     .form-status.is-error { color: #B23A2E; }
 
+    /* GHL (LeadConnector) booking calendar embed */
+    .ghl-booking {
+      margin-top: 28px;
+      min-height: 720px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .ghl-booking iframe {
+      width: 100%;
+      min-height: 720px;
+      display: block;
+    }
+
 
     /* --- HOVER LIFTS --- */
     .retainer-card {
