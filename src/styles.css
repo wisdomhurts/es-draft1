@@ -20,7 +20,7 @@
       /* --- SEMANTIC ALIASES --- */
       --ice: #B8823A;          /* Legacy alias for --ore */
       --body: #5A5F63;
-      --muted: #8A8478;        /* Darkened from #C8C2B4 — passes 4.5:1 on Quartz */
+      --muted: #6E685C;        /* Warm secondary text — ~4.9:1 on Quartz, passes AA */
       --muted-rule: #C8C2B4;   /* Original graticule — use for borders/rules only, not text */
       --border: rgba(26,16,31,0.08);
       --surface: #FFFFFF;
@@ -283,6 +283,9 @@
       opacity: 1 !important;
       background: var(--basalt);
     }
+    /* When used inside the desktop nav, suppress the underline hover affordance */
+    .nav-links a.nav-cta::after { display: none; }
+    .nav-links a.nav-cta:hover { color: var(--white); }
 
     .nav-strip {
       height: 1px;
@@ -1533,6 +1536,7 @@
 
     .package-highlight .pricing-line-name { color: rgba(255,255,255,0.8); }
     .package-highlight .pricing-line-price { color: var(--white); }
+    .pricing-line-unit { color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 400; }
 
     .package-total {
       display: flex;
@@ -1559,7 +1563,8 @@
 
     .package-savings {
       font-size: 13px;
-      color: var(--ice);
+      color: #F2D9A6;        /* Light gold — passes AA (~4.7:1) on the slate package panel */
+      font-weight: 600;
       text-align: right;
       margin-top: 4px;
     }
@@ -1830,6 +1835,16 @@
       margin-top: 4px;
     }
 
+    .form-req { color: var(--ore); }
+
+    .form-status {
+      font-size: 14px;
+      line-height: 150%;
+      margin-top: 10px;
+    }
+    .form-status.is-ok { color: var(--moss); }
+    .form-status.is-error { color: #B23A2E; }
+
 
     /* --- HOVER LIFTS --- */
     .retainer-card {
@@ -2087,16 +2102,20 @@
       .retainer-grid { grid-template-columns: 1fr; }
       .team-member { grid-template-columns: 1fr; gap: 24px; }
       .team-leadership { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .team-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
       .onboarding-steps { grid-template-columns: repeat(2, 1fr); }
       .mega-menu-panel { max-width: 680px; }
+      /* Switch to the mobile menu from tablet down (covers iPad portrait 768px) */
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
     }
 
     @media (max-width: 640px) {
       .nav-inner { padding: 0 20px; }
       .page { padding: 0 20px; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: block; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-leadership { grid-template-columns: 1fr; }
       .hero { padding: 60px 0 48px; }
       .hero-headline { font-size: 32px; }
       .hero-buttons { flex-direction: column; align-items: flex-start; }

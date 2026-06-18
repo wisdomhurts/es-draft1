@@ -10,6 +10,7 @@ permalink: "contact.html"
       <div class="section-label">Contact</div>
       <h1 class="hero-headline">Start a project.</h1>
       <p class="hero-body">Tell us about your property and what you need. We&rsquo;ll follow up within one business day.</p>
+      <a href="#contact-form" class="btn-primary" style="margin-top: 24px;">Start your inquiry</a>
     </section>
 
     <!-- HOW IT WORKS -->
@@ -51,10 +52,11 @@ permalink: "contact.html"
     <section class="section">
       <div class="contact-grid">
         <div>
-          <form class="contact-form" onsubmit="event.preventDefault();this.querySelector('.btn-primary').textContent='Sent — we\u2019ll be in touch';this.querySelector('.btn-primary').style.background='#2d6a4f';">
+          <form class="contact-form" id="contact-form" novalidate>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label" for="name">Name</label>
+                <label class="form-label" for="name">Name <span class="form-req" aria-hidden="true">*</span></label>
                 <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
               </div>
               <div class="form-field">
@@ -63,7 +65,7 @@ permalink: "contact.html"
               </div>
             </div>
             <div class="form-field">
-              <label class="form-label" for="email">Email</label>
+              <label class="form-label" for="email">Email <span class="form-req" aria-hidden="true">*</span></label>
               <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" required>
             </div>
             <div class="form-field">
@@ -82,10 +84,11 @@ permalink: "contact.html"
               </select>
             </div>
             <div class="form-field">
-              <label class="form-label" for="message">Project Description</label>
-              <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your property and what you need..."></textarea>
+              <label class="form-label" for="message">Project Description <span class="form-req" aria-hidden="true">*</span></label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your property and what you need..." required></textarea>
             </div>
             <button type="submit" class="btn-primary" style="align-self: flex-start; cursor: pointer;">Submit Inquiry</button>
+            <p class="form-status" role="status" aria-live="polite" hidden></p>
             <p class="form-hint">We respond within one business day. For urgent requests, call 604 688 9997.</p>
           </form>
         </div>

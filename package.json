@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx @11ty/eleventy",
+    "build": "rm -rf public && npx @11ty/eleventy",
     "dev": "npx @11ty/eleventy --serve",
     "build-mask": "node scripts/build-world-mask.mjs",
+    "build-brand": "node scripts/build-brand-assets.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

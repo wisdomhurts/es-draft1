@@ -90,30 +90,6 @@
       els.forEach(function (el) { countIo.observe(el); });
     })();
 
-    // Scroll-pinned case: track current step
-    (function () {
-      var pinned = document.querySelector('[data-pinned]');
-      if (!pinned) return;
-      var steps = pinned.querySelectorAll('.pinned-case-step');
-      var indicator = pinned.querySelector('[data-current-step]');
-      if (!steps.length || !indicator) return;
-      if (!('IntersectionObserver' in window)) {
-        steps.forEach(function (s) { s.classList.add('is-current'); });
-        return;
-      }
-      var pio = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            steps.forEach(function (s) { s.classList.remove('is-current'); });
-            entry.target.classList.add('is-current');
-            var step = entry.target.getAttribute('data-step');
-            if (step) indicator.textContent = step;
-          }
-        });
-      }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-      steps.forEach(function (s) { pio.observe(s); });
-    })();
-
     // Timeline activation
     (function () {
       var timelines = document.querySelectorAll('[data-timeline]');
@@ -181,6 +157,75 @@
           else if (e.key === 'Home') { setPos(0); e.preventDefault(); }
           else if (e.key === 'End') { setPos(100); e.preventDefault(); }
         });
+      });
+    })();
+
+    // Contact form submission (real backend + mailto fallback so no lead is ever lost)
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      var status = form.querySelector('.form-status');
+      var btn = form.querySelector('[type="submit"]');
+      var original = btn ? btn.textContent : '';
+
+      // Get a free access key at https://web3forms.com (delivers to your inbox, no account/server needed).
+      // Until a real key is set, the form falls back to opening the visitor's email client.
+      var ACCESS_KEY = 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY';
+      var FALLBACK_EMAIL = 'info@explorationsites.com';
+
+      function setStatus(msg, ok) {
+        if (!status) return;
+        status.hidden = false;
+        status.textContent = msg;
+        status.classList.toggle('is-error', !ok);
+        status.classList.toggle('is-ok', ok);
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var honeypot = form.querySelector('[name="_gotcha"]');
+        if (honeypot && honeypot.value) return; // bot
+        if (typeof form.reportValidity === 'function' && !form.reportValidity()) return;
+
+        var data = new FormData(form);
+
+        // Fallback: no key configured -> open the visitor's email client, prefilled.
+        if (!ACCESS_KEY || ACCESS_KEY.indexOf('REPLACE_WITH') === 0) {
+          var subject = 'Project inquiry — ' + (data.get('name') || 'Website');
+          var body = 'Name: ' + (data.get('name') || '') +
+            '\nCompany: ' + (data.get('company') || '') +
+            '\nEmail: ' + (data.get('email') || '') +
+            '\nService: ' + (data.get('service') || '') +
+            '\n\n' + (data.get('message') || '');
+          window.location.href = 'mailto:' + FALLBACK_EMAIL +
+            '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+          setStatus('Opening your email app so you can send this to us…', true);
+          return;
+        }
+
+        // Real async submission via Web3Forms.
+        data.append('access_key', ACCESS_KEY);
+        data.append('subject', 'New project inquiry from explorationsites.com');
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        if (status) status.hidden = true;
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+            if (res.ok && res.j && res.j.success) {
+              form.reset();
+              setStatus('Thank you — your inquiry has been sent. We respond within one business day.', true);
+              if (btn) btn.textContent = 'Sent';
+            } else { throw new Error('submit failed'); }
+          })
+          .catch(function () {
+            setStatus('Something went wrong. Please email info@explorationsites.com or call 604 688 9997.', false);
+            if (btn) { btn.disabled = false; btn.textContent = original; }
+          });
       });
     })();
   </script>
