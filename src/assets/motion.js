@@ -36,7 +36,7 @@
 
   // --- Magnetic CTAs (fine-pointer / hover devices only) ---
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(function (btn) {
+    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function (btn) {
       if (getComputedStyle(btn).display === 'inline') btn.style.display = 'inline-block';
       var xTo = gsap.quickTo(btn, 'x', { duration: 0.45, ease: 'power3.out' });
       var yTo = gsap.quickTo(btn, 'y', { duration: 0.45, ease: 'power3.out' });

@@ -269,11 +269,15 @@
     }
 
     .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
       background: var(--graphite);
       color: var(--white) !important;
       padding: 10px 24px;
       border-radius: 6px;
       font-size: 14px;
+      line-height: 1;
       font-weight: 600;
       text-decoration: none;
       transition: background 0.2s ease;
