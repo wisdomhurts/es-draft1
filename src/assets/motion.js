@@ -68,7 +68,7 @@
       });
     }
 
-    gsap.utils.toArray('.case-logo, .case-multiplier, .stats-grid').forEach(function (el) {
+    gsap.utils.toArray('.case-logo, .case-multiplier, .stats-grid, .work-grid').forEach(function (el) {
       gsap.from(el, {
         opacity: 0, y: 20, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 88%' },

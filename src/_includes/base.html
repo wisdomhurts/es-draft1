@@ -10,6 +10,15 @@
     {{ content }}
   </div>
 
+  <!-- Shared lightbox (selected work / map features) -->
+  <div class="lightbox" id="work-lightbox" hidden>
+    <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" src="" alt="">
+      <figcaption class="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+
   {% include "footer.html" %}
   {% include "scripts.html" %}
 </body>

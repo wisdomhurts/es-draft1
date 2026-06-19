@@ -228,6 +228,30 @@
           });
       });
     })();
+
+    // Selected-work lightbox
+    (function () {
+      var lb = document.getElementById('work-lightbox');
+      if (!lb) return;
+      var img = lb.querySelector('.lightbox-img');
+      var cap = lb.querySelector('.lightbox-cap');
+      function open(full, caption, alt) {
+        img.src = full; img.alt = alt || caption || '';
+        cap.textContent = caption || '';
+        lb.hidden = false; document.body.style.overflow = 'hidden';
+      }
+      function close() { lb.hidden = true; img.src = ''; document.body.style.overflow = ''; }
+      document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var thumb = el.querySelector('img');
+          open(el.getAttribute('data-full'), el.getAttribute('data-caption'), thumb ? thumb.alt : '');
+        });
+      });
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb || e.target.classList.contains('lightbox-close')) close();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
+    })();
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
