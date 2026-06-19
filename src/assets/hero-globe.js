@@ -237,7 +237,8 @@ async function init() {
   controls.maxDistance = MAX_DISTANCE;
   controls.rotateSpeed = 0.6;
   controls.zoomSpeed = 0.8;
-  controls.autoRotate = true;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  controls.autoRotate = !reducedMotion;   // honor reduced-motion: no perpetual spin
   controls.autoRotateSpeed = AUTO_ROTATE_SPEED;
 
   let isDragging = false;
@@ -247,7 +248,7 @@ async function init() {
   });
   controls.addEventListener('end', () => {
     isDragging = false;
-    controls.autoRotate = true;
+    controls.autoRotate = !reducedMotion;
   });
 
   // --- Mouse tracking (shared by repulsion + pin magnetism) ---
