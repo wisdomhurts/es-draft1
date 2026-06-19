@@ -272,20 +272,22 @@
       display: inline-flex;
       align-items: center;
       vertical-align: middle;
-      background: var(--graphite);
-      color: var(--white) !important;
-      padding: 10px 24px;
+      background: transparent;
+      color: var(--graphite) !important;
+      padding: 9px 20px;
+      border: 1.5px solid var(--graphite);
       border-radius: 6px;
       font-size: 14px;
       line-height: 1;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     .nav-cta:hover {
       opacity: 1 !important;
-      background: var(--basalt);
+      background: var(--graphite);
+      color: var(--white) !important;
     }
     /* When used inside the desktop nav, suppress the underline hover affordance */
     .nav-links a.nav-cta::after { display: none; }
