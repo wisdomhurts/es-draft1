@@ -60,3 +60,6 @@
 
 # Phantom broken-ACL directory (rebuild artifact)
 src/assets/globe
+
+# Build output — Vercel regenerates this via buildCommand
+public
