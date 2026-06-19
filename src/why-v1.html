@@ -1,0 +1,313 @@
+---
+layout: base.html
+title: "Why We Exist — Exploration Sites"
+description: "We started as mapmakers in 1994. Three decades and 300+ companies later, we are the communication layer between a deposit and the capital markets. Because capital flows toward clarity."
+permalink: "why-v1.html"
+---
+
+    <style>
+      /* ===== Scoped: Origin Story (.why2-*) ===== */
+      .why2-hero .hero-headline em { font-style: italic; color: var(--ore, #B8823A); }
+
+      /* Era marker — large, quiet year that anchors each chapter */
+      .why2-era {
+        display: flex;
+        align-items: baseline;
+        gap: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      .why2-year {
+        font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+        font-size: clamp(2.6rem, 7vw, 4.75rem);
+        font-weight: 400;
+        line-height: 0.9;
+        color: var(--ore, #B8823A);
+        letter-spacing: -0.01em;
+        font-feature-settings: "lnum" 1, "tnum" 1;
+      }
+      .why2-era .section-label { margin-bottom: 0; opacity: 0.85; }
+
+      /* Pacing: full-bleed-feeling statement chapter */
+      .why2-statement {
+        max-width: 56ch;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .why2-statement .why2-big {
+        font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+        font-size: clamp(1.9rem, 4.4vw, 3rem);
+        line-height: 1.18;
+        letter-spacing: -0.015em;
+        color: var(--graphite, #1A101F);
+        margin: 0 0 1.25rem;
+      }
+      .why2-statement .why2-big em { font-style: italic; color: var(--ore, #B8823A); }
+      .why2-statement .body-text { margin-left: auto; margin-right: auto; max-width: 50ch; }
+
+      /* Side-by-side contrast: two companies, same rocks */
+      .why2-contrast {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: clamp(1.25rem, 4vw, 3rem);
+        align-items: stretch;
+        margin-top: 2.25rem;
+      }
+      .why2-card {
+        border: 1px solid rgba(26, 16, 31, 0.12);
+        border-radius: 4px;
+        padding: clamp(1.25rem, 2.5vw, 1.9rem);
+        background: rgba(255, 255, 255, 0.4);
+      }
+      .why2-card .why2-card-label {
+        font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--slate, #5A5F63);
+        margin-bottom: 0.65rem;
+      }
+      .why2-card .why2-card-line { color: var(--slate, #5A5F63); margin: 0.2rem 0; }
+      .why2-card .why2-outcome {
+        font-family: var(--font-serif, Georgia, serif);
+        font-size: 1.4rem;
+        margin-top: 1rem;
+        color: var(--graphite, #1A101F);
+      }
+      .why2-card--win { border-color: rgba(184, 130, 58, 0.55); }
+      .why2-card--win .why2-outcome { color: var(--ore, #B8823A); }
+      .why2-divider-vs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono, monospace);
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--slate, #5A5F63);
+      }
+      @media (max-width: 720px) {
+        .why2-contrast { grid-template-columns: 1fr; }
+        .why2-divider-vs { padding: 0.25rem 0; }
+      }
+
+      /* The stack we build today */
+      .why2-stack {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid rgba(26, 16, 31, 0.12);
+      }
+      .why2-stack li {
+        display: grid;
+        grid-template-columns: 1.6rem 1fr;
+        gap: 1rem;
+        align-items: baseline;
+        padding: 0.95rem 0;
+        border-bottom: 1px solid rgba(26, 16, 31, 0.12);
+      }
+      .why2-stack .why2-stack-num {
+        font-family: var(--font-mono, monospace);
+        font-size: 0.72rem;
+        color: var(--ore, #B8823A);
+        letter-spacing: 0.08em;
+      }
+      .why2-stack .why2-stack-term {
+        font-family: var(--font-serif, Georgia, serif);
+        font-size: 1.18rem;
+        color: var(--graphite, #1A101F);
+      }
+      .why2-stack .why2-stack-desc { color: var(--slate, #5A5F63); }
+
+      /* Belief — the closing line */
+      .why2-belief {
+        text-align: center;
+        max-width: 60ch;
+        margin: 0 auto;
+      }
+      .why2-belief .why2-creed {
+        font-family: var(--font-serif, Georgia, serif);
+        font-size: clamp(2rem, 5.5vw, 3.6rem);
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        color: var(--graphite, #1A101F);
+        margin: 0;
+      }
+      .why2-belief .why2-creed em { font-style: italic; color: var(--ore, #B8823A); }
+    </style>
+
+    <!-- HERO -->
+    <section class="hero hero--page why2-hero">
+      <div class="section-label">Why We Exist</div>
+      <h1 class="hero-headline">We began as mapmakers. We became the reason the map gets <em>funded</em>.</h1>
+      <p class="hero-body">For thirty years we have worked at the seam between geology and capital &mdash; turning what is buried, technical, and invisible into something an investor can understand in ninety seconds. This is how that work began, and why it matters more than ever.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CHAPTER 1 — 1994: THE MAPMAKERS -->
+    <section class="section">
+      <div class="section-grid">
+        <div data-reveal>
+          <div class="why2-era">
+            <span class="why2-year">1994</span>
+          </div>
+          <div class="section-label">The Beginning</div>
+          <h2 class="section-headline">It started with a single, honest job: make the map clean.</h2>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <p class="body-text">Take the data. Make it clean. Get it into the news release before the market opens. That was the work, and we were good at it.</p>
+          <p class="body-text">Over three decades that craft compounded. We drew maps for more than 300 companies across five continents &mdash; locators and area plays, geological maps, cross sections, full 3D models. The complete cartographic stack of an exploration story, drawn by hand and by data, release after release.</p>
+          <p class="body-text">We thought we were in the business of accuracy. We were. But accuracy turned out to be only half of the job.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BY THE NUMBERS -->
+    <section class="stats" data-reveal>
+      <div class="stats-grid">
+        <div>
+          <div class="stat-number" data-count-to="1994" data-count-suffix="">1994</div>
+          <div class="stat-label">Year One</div>
+        </div>
+        <div>
+          <div class="stat-number" data-count-to="300" data-count-suffix="+">300+</div>
+          <div class="stat-label">Companies Mapped</div>
+        </div>
+        <div>
+          <div class="stat-number" data-count-to="5" data-count-suffix="">5</div>
+          <div class="stat-label">Continents</div>
+        </div>
+        <div>
+          <div class="stat-number" data-count-to="500" data-count-suffix="+">500+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CHAPTER 2 — THE PATTERN -->
+    <section class="section">
+      <div class="section-grid">
+        <div data-reveal>
+          <div class="section-label">The Pattern</div>
+          <h2 class="section-headline">Then we noticed something we couldn&rsquo;t un-see.</h2>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <p class="body-text">Two companies. Same district. Similar grade. Same commodity. One closes its round in weeks. The other can&rsquo;t get a callback. Same rocks &mdash; different result.</p>
+          <p class="body-text">It happened too often to be luck. We&rsquo;d look at the company that couldn&rsquo;t raise and the diagnosis was always the same: the geology was genuinely good, but nobody could <em>see</em> it. The maps were cluttered. The deck was dense. The website looked a decade old. The story was illegible.</p>
+          <p class="body-text">And the deposit doesn&rsquo;t care that the story is illegible. The capital does.</p>
+        </div>
+      </div>
+
+      <div class="why2-contrast" data-reveal data-reveal-delay="1">
+        <div class="why2-card">
+          <div class="why2-card-label">Company A</div>
+          <p class="why2-card-line">Strong geology</p>
+          <p class="why2-card-line">Dense deck, dated site</p>
+          <p class="why2-card-line">Story illegible</p>
+          <p class="why2-outcome">Round stalls.</p>
+        </div>
+        <div class="why2-divider-vs"><span>Same district</span></div>
+        <div class="why2-card why2-card--win">
+          <div class="why2-card-label">Company B</div>
+          <p class="why2-card-line">Comparable geology</p>
+          <p class="why2-card-line">Clear maps, sharp narrative</p>
+          <p class="why2-card-line">Story legible</p>
+          <p class="why2-outcome">Round closes.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CHAPTER 3 — THE TURNING POINT (statement) -->
+    <section class="section">
+      <div class="why2-statement" data-reveal>
+        <div class="section-label" style="display:inline-block;">The Turning Point</div>
+        <p class="why2-big">The deposit never changed.<br>The <em>comprehension</em> did.</p>
+        <p class="body-text">We&rsquo;d watch a client struggle for months, then rebuild their entire visual stack &mdash; maps, deck, website, brand. Same deposit. Same management. Suddenly the phone rings. That was the moment the company stopped being a map studio in its own mind and became something else: the layer that makes geology legible to the people who write the checks.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- VISUAL PROOF — map feature -->
+    <section class="section">
+      <div class="map-feature" data-reveal>
+        <button type="button" class="map-feature-media" data-lightbox data-full="images/work/vicuna-district-full.avif" data-caption="NGEX — Vicuña District regional locator, Chile &amp; Argentina">
+          <img src="images/work/vicuna-district.avif" alt="Regional locator placing a deposit inside a known mineral district" loading="lazy" width="1400" height="1030">
+        </button>
+        <div class="map-feature-text">
+          <div class="section-label">What Legibility Looks Like</div>
+          <h3 class="map-feature-title">A map is an argument an investor can read in seconds.</h3>
+          <p class="body-text">Place a project beside the names the market already trusts. Show borders, infrastructure, and scale at a glance. Nothing about the rock has changed &mdash; but now it sits inside a story a generalist portfolio manager can grasp before the next meeting. That is the whole job, distilled into a single frame.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CHAPTER 4 — TODAY: THE COMMUNICATION LAYER -->
+    <section class="section">
+      <div class="section-grid">
+        <div data-reveal>
+          <div class="why2-era">
+            <span class="why2-year">Today</span>
+          </div>
+          <div class="section-label">What We Are Now</div>
+          <h2 class="section-headline">The communication layer between a deposit and the capital markets.</h2>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <p class="body-text">We still make maps &mdash; the craft that started it all is still the heart of the work. But around that craft we now build the full apparatus a company needs to be understood and to be funded.</p>
+          <ul class="why2-stack">
+            <li><span class="why2-stack-num">01</span><span><span class="why2-stack-term">Maps &amp; geoscience visuals</span> &mdash; <span class="why2-stack-desc">locators, area plays, sections, 3D &mdash; release-ready.</span></span></li>
+            <li><span class="why2-stack-num">02</span><span><span class="why2-stack-term">Websites &amp; investor systems</span> &mdash; <span class="why2-stack-desc">the digital exploration site itself.</span></span></li>
+            <li><span class="why2-stack-num">03</span><span><span class="why2-stack-term">Presentations &amp; decks</span> &mdash; <span class="why2-stack-desc">the ninety seconds that decide the meeting.</span></span></li>
+            <li><span class="why2-stack-num">04</span><span><span class="why2-stack-term">Films</span> &mdash; <span class="why2-stack-desc">geology in motion, for the people who skim.</span></span></li>
+            <li><span class="why2-stack-num">05</span><span><span class="why2-stack-term">Brand &amp; identity</span> &mdash; <span class="why2-stack-desc">one coherent voice across every touchpoint.</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- THE TRUTH -->
+    <section class="section">
+      <div class="section-grid">
+        <div data-reveal>
+          <div class="section-label">The Truth</div>
+          <h2 class="section-headline">We&rsquo;re not in the design business. We&rsquo;re in the investable business.</h2>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <p class="pullquote">We make complex geology <em>investable</em>.</p>
+          <p class="body-text">Every map, every page, every frame does one thing: it makes something invisible, technical, and buried legible to someone deciding where to put capital. In mining the stakes are sharper than anywhere else &mdash; the product is literally underground, described in a language investors don&rsquo;t speak.</p>
+          <p class="body-text">If a deliverable carries our name, it will hold up in front of an institutional investor. That has been the bar since 1994, and it still is.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- THE BELIEF — close -->
+    <section class="section">
+      <div class="why2-belief" data-reveal>
+        <div class="section-label" style="display:inline-block;">Our Belief</div>
+        <p class="why2-creed">Capital flows toward <em>clarity</em>.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2 class="cta-headline">You have the geology. Let&rsquo;s make it legible.</h2>
+      <p class="cta-sub">Thirty years, 300+ companies, five continents. The rocks were always good. We make sure the market can see it.</p>
+      <a href="contact.html" class="btn-primary">Start a project</a>
+      <a href="case-studies.html" class="btn-secondary">See the proof</a>
+    </section>
+
+    <div class="divider"></div>

@@ -1,0 +1,393 @@
+---
+layout: base.html
+title: "Why We Exist — Exploration Sites"
+description: "Capital flows toward clarity. The deposit never changes — the comprehension does. We are the communication layer between great geology and the capital markets."
+permalink: "why-v2.html"
+---
+
+<style>
+  /* ============ MANIFESTO — scoped under .whyman ============ */
+  .whyman {
+    --whyman-hair: rgba(26,16,31,0.10);
+  }
+
+  /* Oversized poster hero */
+  .whyman-hero {
+    padding: clamp(80px, 14vh, 160px) 0 clamp(56px, 9vh, 110px);
+  }
+  .whyman-kicker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: clamp(36px, 6vh, 64px);
+  }
+  .whyman-kicker .section-label { margin: 0; }
+  .whyman-kicker .whyman-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--whyman-hair);
+  }
+  .whyman-thesis {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    color: var(--graphite);
+    font-size: clamp(48px, 10.5vw, 158px);
+    margin: 0;
+  }
+  .whyman-thesis em {
+    font-style: italic;
+    color: var(--ore);
+  }
+  .whyman-thesis .whyman-light {
+    color: var(--slate);
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px var(--slate);
+  }
+  .whyman-deck {
+    max-width: 640px;
+    margin: clamp(40px, 6vh, 64px) 0 0 auto;
+    font-size: clamp(17px, 1.4vw, 21px);
+    line-height: 1.6;
+    color: var(--slate);
+  }
+  .whyman-deck strong { color: var(--graphite); font-weight: 600; }
+
+  /* Declarative statement stack — the poster lines */
+  .whyman-stack {
+    border-top: 1px solid var(--whyman-hair);
+  }
+  .whyman-line {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 28px;
+    align-items: start;
+    padding: clamp(40px, 6vh, 72px) 0;
+    border-bottom: 1px solid var(--whyman-hair);
+  }
+  .whyman-index {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+    padding-top: 0.7em;
+  }
+  .whyman-declare {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--graphite);
+    font-size: clamp(30px, 5.2vw, 64px);
+    margin: 0;
+    max-width: 16ch;
+  }
+  .whyman-declare em { font-style: italic; color: var(--ore); }
+  .whyman-sub {
+    margin: 20px 0 0;
+    max-width: 52ch;
+    font-size: clamp(16px, 1.25vw, 18px);
+    line-height: 1.6;
+    color: var(--slate);
+  }
+  .whyman-sub strong { color: var(--graphite); font-weight: 600; }
+
+  /* The proof band — record numbers as a quiet ledger */
+  .whyman-ledger {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--graphite);
+    border-bottom: 1px solid var(--whyman-hair);
+  }
+  .whyman-ledger-cell {
+    padding: clamp(32px, 5vh, 56px) 28px clamp(32px, 5vh, 56px) 0;
+    border-right: 1px solid var(--whyman-hair);
+  }
+  .whyman-ledger-cell:last-child { border-right: none; }
+  .whyman-ledger-num {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--graphite);
+    font-size: clamp(40px, 5vw, 68px);
+  }
+  .whyman-ledger-num span { color: var(--ore); }
+  .whyman-ledger-cap {
+    margin-top: 14px;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  /* The hinge — before / after of comprehension */
+  .whyman-hinge {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--whyman-hair);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .whyman-hinge-side { padding: clamp(36px, 5vw, 64px); }
+  .whyman-hinge-side + .whyman-hinge-side {
+    border-left: 1px solid var(--whyman-hair);
+  }
+  .whyman-hinge-side.is-after { background: var(--graphite); }
+  .whyman-hinge-eyebrow {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 24px;
+  }
+  .is-after .whyman-hinge-eyebrow { color: var(--ore); }
+  .whyman-hinge-stmt {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--graphite);
+  }
+  .is-after .whyman-hinge-stmt { color: var(--quartz); }
+  .is-after .whyman-hinge-stmt em { font-style: italic; color: var(--ore); }
+
+  /* Closing oversized quote */
+  .whyman-close {
+    padding: clamp(80px, 12vh, 150px) 0;
+    text-align: center;
+  }
+  .whyman-close-quote {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    color: var(--graphite);
+    font-size: clamp(44px, 9vw, 132px);
+    margin: 0 auto;
+    max-width: 14ch;
+  }
+  .whyman-close-quote em { font-style: italic; color: var(--ore); }
+  .whyman-close-attr {
+    margin-top: clamp(32px, 5vh, 56px);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  @media (max-width: 820px) {
+    .whyman-line { grid-template-columns: 1fr; gap: 12px; }
+    .whyman-index { padding-top: 0; }
+    .whyman-deck { margin-left: 0; }
+    .whyman-ledger { grid-template-columns: 1fr 1fr; }
+    .whyman-ledger-cell {
+      border-bottom: 1px solid var(--whyman-hair);
+      padding-right: 20px;
+    }
+    .whyman-ledger-cell:nth-child(2n) { border-right: none; }
+    .whyman-ledger-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .whyman-hinge { grid-template-columns: 1fr; }
+    .whyman-hinge-side + .whyman-hinge-side {
+      border-left: none;
+      border-top: 1px solid var(--whyman-hair);
+    }
+  }
+</style>
+
+<div class="whyman">
+
+  <!-- POSTER HERO -->
+  <section class="hero hero--page whyman-hero">
+    <div class="whyman-kicker" data-reveal>
+      <span class="section-label">Why We Exist</span>
+      <span class="whyman-rule"></span>
+      <span class="section-label">Est. 1994</span>
+    </div>
+
+    <h1 class="whyman-thesis" data-reveal data-reveal-delay="1">
+      Capital flows<br>
+      toward <em>clarity.</em>
+    </h1>
+
+    <p class="whyman-deck" data-reveal data-reveal-delay="2">
+      The rock does not move. The orebody does not grow because you funded it.
+      What changes is whether the market can <strong>see it clearly enough to act.</strong>
+      We build that comprehension &mdash; and comprehension is what gets funded.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DECLARATIVE STACK -->
+  <section class="section">
+    <div class="whyman-stack">
+
+      <div class="whyman-line" data-reveal>
+        <div class="whyman-index">01 / Origin</div>
+        <div>
+          <p class="whyman-declare">We began as <em>mapmakers.</em></p>
+          <p class="whyman-sub">
+            Take the data. Make it clean. Get it into the news release.
+            For thirty years that was the brief &mdash; and we drew it for hundreds
+            of companies across five continents. Locators, area plays, geology,
+            cross sections, 3D. The full stack.
+          </p>
+        </div>
+      </div>
+
+      <div class="whyman-line" data-reveal>
+        <div class="whyman-index">02 / Pattern</div>
+        <div>
+          <p class="whyman-declare">Same district. Same rocks. <em>Different result.</em></p>
+          <p class="whyman-sub">
+            One company closes its round. The neighbour, with comparable geology,
+            cannot. The deposit was never the variable. The story was. Investors
+            decide in under two minutes &mdash; and most projects lose them before
+            the science is ever understood.
+          </p>
+        </div>
+      </div>
+
+      <div class="whyman-line" data-reveal>
+        <div class="whyman-index">03 / Diagnosis</div>
+        <div>
+          <p class="whyman-declare">Great geology fails when the story is <em>illegible.</em></p>
+          <p class="whyman-sub">
+            In mining the product is invisible &mdash; buried, technical, and described
+            in a language capital does not speak. The best ideas in the market die not
+            because they are wrong, but because nobody could read them fast enough to care.
+          </p>
+        </div>
+      </div>
+
+      <div class="whyman-line" data-reveal>
+        <div class="whyman-index">04 / Role</div>
+        <div>
+          <p class="whyman-declare">We are the layer between the deposit and the <em>market.</em></p>
+          <p class="whyman-sub">
+            Maps, websites, presentations, films, brand, investor systems.
+            One coherent communication layer that translates buried science into
+            something an institution can underwrite &mdash; precisely, and without
+            distortion of the facts.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THE HINGE -->
+  <section class="section">
+    <div class="section-label" data-reveal>The Turning Point</div>
+    <h2 class="section-headline" data-reveal style="max-width: 18ch;">Nothing underground changed. The understanding did.</h2>
+
+    <div class="whyman-hinge" data-reveal data-reveal-delay="1" style="margin-top: 40px;">
+      <div class="whyman-hinge-side">
+        <div class="whyman-hinge-eyebrow">Before</div>
+        <p class="whyman-hinge-stmt">
+          Strong geology. A dense deck, a confusing map, a website from another decade.
+          The phone stays quiet.
+        </p>
+      </div>
+      <div class="whyman-hinge-side is-after">
+        <div class="whyman-hinge-eyebrow">After</div>
+        <p class="whyman-hinge-stmt">
+          Same deposit. Same team. Rebuilt visual stack. Suddenly the story is
+          <em>legible</em> &mdash; and the round closes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THE LEDGER -->
+  <section class="section">
+    <div class="section-label" data-reveal>The Record</div>
+    <h2 class="section-headline" data-reveal style="max-width: 20ch;">Three decades of making complex geology investable.</h2>
+
+    <div class="whyman-ledger" data-reveal data-reveal-delay="1" style="margin-top: 44px;">
+      <div class="whyman-ledger-cell">
+        <div class="whyman-ledger-num">1994</div>
+        <div class="whyman-ledger-cap">First Map Drawn</div>
+      </div>
+      <div class="whyman-ledger-cell">
+        <div class="whyman-ledger-num">300<span>+</span></div>
+        <div class="whyman-ledger-cap">Companies Served</div>
+      </div>
+      <div class="whyman-ledger-cell">
+        <div class="whyman-ledger-num">5</div>
+        <div class="whyman-ledger-cap">Continents</div>
+      </div>
+      <div class="whyman-ledger-cell">
+        <div class="whyman-ledger-num">1</div>
+        <div class="whyman-ledger-cap">Standard, No Exceptions</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- VISUAL PROOF -->
+  <section class="section">
+    <div class="section-label" data-reveal>Evidence</div>
+    <h2 class="section-headline" data-reveal style="max-width: 22ch;">The same data, rendered so capital can read it.</h2>
+
+    <div class="map-feature" data-reveal data-reveal-delay="1" style="margin-top: 32px;">
+      <button type="button" class="map-feature-media" data-lightbox
+        data-full="images/work/vicuna-district-full.avif"
+        data-caption="Vicuña district — regional context for an emerging copper-gold belt">
+        <img src="images/work/vicuna-district.avif" alt="Vicuña district regional map" loading="lazy">
+      </button>
+      <div class="map-feature-text">
+        <h3 class="map-feature-title">A district made legible at a glance</h3>
+        <p class="body-text">Context before complexity. An investor sees where the project sits, why the address matters, and what neighbours have already proven &mdash; in the first few seconds, not the fortieth slide.</p>
+      </div>
+    </div>
+
+    <div class="map-feature" data-reveal>
+      <button type="button" class="map-feature-media" data-lightbox
+        data-full="images/work/greenstone-belts-full.avif"
+        data-caption="Greenstone belts — geological framework rendered for non-specialist comprehension">
+        <img src="images/work/greenstone-belts.avif" alt="Greenstone belts geological map" loading="lazy">
+      </button>
+      <div class="map-feature-text">
+        <h3 class="map-feature-title">Geology that survives a non-specialist read</h3>
+        <p class="body-text">The science is not simplified &mdash; it is made navigable. Hierarchy, restraint, and a deliberate palette let a generalist portfolio manager hold the same picture a geologist does.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CLOSING POSTER QUOTE -->
+  <section class="whyman-close">
+    <p class="whyman-close-quote" data-reveal>
+      The geology never changes. The <em>comprehension</em> does.
+    </p>
+    <div class="whyman-close-attr" data-reveal data-reveal-delay="1">Exploration Sites &mdash; The Communication Layer for Discovery</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-headline">Make your deposit investable.</h2>
+    <p class="cta-sub">You have the rocks. Let&rsquo;s make the market see them.</p>
+    <a href="contact.html" class="btn-primary">Start a project</a>
+  </section>
+
+  <div class="divider"></div>
+
+</div>

@@ -1,0 +1,407 @@
+---
+layout: base.html
+title: "Case Studies — Exploration Sites"
+description: "See the work. Investor maps, decks, and brand systems that helped Montage Gold (90x), Fireweed (62x), West Red Lake, Dolly Varden, and Hercules become legible to capital."
+permalink: "case-studies-v2.html"
+---
+
+<style>
+  /* scoped wrapper — nothing leaks globally */
+  .csv2 { --csv2-rule: rgba(26,16,31,0.08); }
+
+  /* Hero KPI strip */
+  .csv2-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border-top: 1px solid var(--csv2-rule);
+    border-bottom: 1px solid var(--csv2-rule);
+  }
+  .csv2-kpis > div {
+    padding: 26px 28px 26px 0;
+    border-right: 1px solid var(--csv2-rule);
+  }
+  .csv2-kpis > div:last-child { border-right: none; padding-right: 0; }
+  .csv2-kpi-num {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--graphite);
+    letter-spacing: -0.01em;
+  }
+  .csv2-kpi-num em { color: var(--ore); font-style: normal; }
+  .csv2-kpi-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-top: 12px;
+  }
+
+  /* Case row — extends .map-feature with a richer text column */
+  .csv2-case { align-items: center; }
+  .csv2-case--flip .csv2-case-media { order: 2; }
+  .csv2-case--flip .csv2-case-text { order: 1; }
+
+  .csv2-case-media {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--csv2-rule);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--vellum);
+    cursor: zoom-in;
+    position: relative;
+  }
+  .csv2-case-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.2,0.7,0.2,1);
+  }
+  .csv2-case-media:hover img,
+  .csv2-case-media:focus-visible img { transform: scale(1.035); }
+  .csv2-case-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--quartz);
+    background: rgba(26,16,31,0.78);
+    padding: 6px 10px;
+    border-radius: 5px;
+    backdrop-filter: blur(2px);
+  }
+
+  .csv2-case-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .csv2-case-logo {
+    height: 40px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0.9;
+  }
+  .csv2-ticker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--slate);
+    border-left: 1px solid var(--csv2-rule);
+    padding-left: 16px;
+  }
+  .csv2-ticker b { color: var(--graphite); font-weight: 600; }
+
+  .csv2-move {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin: 4px 0 16px;
+  }
+  .csv2-move-figures {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--graphite);
+    letter-spacing: -0.01em;
+  }
+  .csv2-move-mult {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1;
+    color: var(--ore);
+    font-style: italic;
+  }
+  .csv2-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+  .csv2-deliver {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--csv2-rule);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .csv2-deliver li {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--slate);
+    border: 1px solid var(--csv2-rule);
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+
+  /* Logo wall */
+  .csv2-logowall {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+    padding: 36px 0;
+    border-top: 1px solid var(--csv2-rule);
+    border-bottom: 1px solid var(--csv2-rule);
+  }
+  .csv2-logowall img {
+    width: 100%;
+    height: 56px;
+    object-fit: contain;
+    opacity: 0.82;
+    transition: opacity 0.3s ease;
+  }
+  .csv2-logowall img:hover { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .csv2-case { grid-template-columns: 1fr; gap: 22px; padding: 30px 0; }
+    .csv2-case--flip .csv2-case-media { order: 1; }
+    .csv2-case--flip .csv2-case-text { order: 2; }
+    .csv2-kpis { grid-template-columns: 1fr 1fr; }
+    .csv2-kpis > div:nth-child(2) { border-right: none; padding-right: 0; }
+    .csv2-kpis > div { border-bottom: 1px solid var(--csv2-rule); }
+    .csv2-kpis > div:nth-last-child(-n+2) { border-bottom: none; }
+    .csv2-kpi-num { font-size: 32px; }
+    .csv2-logowall { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  }
+</style>
+
+<div class="csv2">
+
+  <!-- PAGE HERO -->
+  <section class="hero hero--page">
+    <div class="section-label">Case Studies — Selected Work</div>
+    <h1 class="hero-headline">See the work.<br>Then see the move.</h1>
+    <p class="hero-body">Every deposit below was always there. What changed was whether the market could read it. These are the maps, decks, and brand systems we built &mdash; paired with what happened next.</p>
+
+    <dl class="csv2-kpis" data-reveal>
+      <div>
+        <div class="csv2-kpi-num">90<em>&times;</em></div>
+        <div class="csv2-kpi-label">Largest multiplier</div>
+      </div>
+      <div>
+        <div class="csv2-kpi-num">5</div>
+        <div class="csv2-kpi-label">Featured cases</div>
+      </div>
+      <div>
+        <div class="csv2-kpi-num">500<em>+</em></div>
+        <div class="csv2-kpi-label">Projects since 1994</div>
+      </div>
+      <div>
+        <div class="csv2-kpi-num">5</div>
+        <div class="csv2-kpi-label">Continents</div>
+      </div>
+    </dl>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MONTAGE GOLD — image left -->
+  <section class="section">
+    <div class="map-feature csv2-case" data-reveal>
+      <button type="button" class="map-feature-media csv2-case-media" data-lightbox data-full="images/work/vicuna-district-full.avif" data-caption="Montage Gold — district-scale investor map, Koné Gold, Côte d'Ivoire">
+        <img src="images/work/vicuna-district.avif" alt="District-scale investor map produced for Montage Gold's Koné Gold project in Côte d'Ivoire" width="1400" height="900">
+        <span class="csv2-case-tag">Investor map · resource update series</span>
+      </button>
+      <div class="map-feature-text csv2-case-text">
+        <div class="csv2-case-head">
+          <img src="images/clients/montage.avif" alt="Montage Gold" class="csv2-case-logo">
+          <span class="csv2-ticker">TSX:&nbsp;<b>MAU</b></span>
+        </div>
+        <div class="csv2-move">
+          <span class="csv2-move-figures">$67M &rarr; $6.0B</span>
+          <span class="csv2-move-mult">90&times;</span>
+        </div>
+        <div class="csv2-meta">Koné Gold, Côte d'Ivoire · Client since Nov 2021</div>
+        <p class="body-text">A strong West African gold system most investors couldn't place on a map. We produced the investor maps that carried every resource update &mdash; from first inferred ounces through each expansion &mdash; and ran the same visual language through their corporate presentations and roadshow decks. As the resource grew, the visuals scaled with it: scale, grade, and continuity legible at a glance.</p>
+        <ul class="csv2-deliver">
+          <li>Investor maps</li>
+          <li>Corporate presentations</li>
+          <li>Roadshow decks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FIREWEED METALS — image right -->
+  <section class="section">
+    <div class="map-feature csv2-case csv2-case--flip" data-reveal>
+      <button type="button" class="map-feature-media csv2-case-media" data-lightbox data-full="images/work/greenstone-belts-full.avif" data-caption="Fireweed Metals — district investor map, world's largest tungsten deposit">
+        <img src="images/work/greenstone-belts.avif" alt="District-scale investor map produced for Fireweed Metals" loading="lazy" width="1400" height="845">
+        <span class="csv2-case-tag">Investor maps · GIS film · website</span>
+      </button>
+      <div class="map-feature-text csv2-case-text">
+        <div class="csv2-case-head">
+          <img src="images/clients/fireweed.avif" alt="Fireweed Metals" class="csv2-case-logo">
+          <span class="csv2-ticker">TSXV:&nbsp;<b>FWZ</b></span>
+        </div>
+        <div class="csv2-move">
+          <span class="csv2-move-figures">$16.5M &rarr; $1.03B</span>
+          <span class="csv2-move-mult">62&times;</span>
+        </div>
+        <div class="csv2-meta">Critical minerals · Client since 2018</div>
+        <p class="body-text">It started in 2018 with a <a href="https://youtu.be/hQzoQW-OAAo" target="_blank" class="case-link">GIS movie</a> about the deposits. Since then we've created their investor maps and run their website &mdash; through the arc from micro-cap zinc explorer to a billion-dollar critical-minerals company holding the world's largest tungsten deposit, backed by $35.4M in joint US&ndash;Canada government funding. Seven years of investable communication.</p>
+        <ul class="csv2-deliver">
+          <li>GIS movie</li>
+          <li>Investor maps</li>
+          <li>Website</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WEST RED LAKE GOLD — image left -->
+  <section class="section">
+    <div class="map-feature csv2-case" data-reveal>
+      <button type="button" class="map-feature-media csv2-case-media" data-lightbox data-full="images/work/kincora-nsw-full.avif" data-caption="West Red Lake Gold — news-release map, Madsen Mine, Red Lake, Ontario">
+        <img src="images/work/kincora-nsw.avif" alt="News-release map produced for West Red Lake Gold's Madsen Mine in Red Lake, Ontario" loading="lazy" width="1400" height="1181">
+        <span class="csv2-case-tag">~10 maps / month · full IR system</span>
+      </button>
+      <div class="map-feature-text csv2-case-text">
+        <div class="csv2-case-head">
+          <img src="images/clients/wrlg.avif" alt="West Red Lake Gold" class="csv2-case-logo">
+          <span class="csv2-ticker">TSXV:&nbsp;<b>WRLG</b></span>
+        </div>
+        <div class="csv2-move">
+          <span class="csv2-move-figures">$40M &rarr; $409M</span>
+          <span class="csv2-move-mult">10&times;</span>
+        </div>
+        <div class="csv2-meta">Madsen Mine, Red Lake, Ontario · Client since Aug 2023</div>
+        <p class="body-text">Every piece of digital investor relations: the logo, the deck, the website, and roughly ten maps a month for news releases as they advance toward restarting the high-grade Madsen Mine. From $40M to over $400M in under three years &mdash; the visual layer keeping pace with every drill result that lands.</p>
+        <ul class="csv2-deliver">
+          <li>Logo &amp; brand</li>
+          <li>Investor deck</li>
+          <li>Website</li>
+          <li>~10 maps / month</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DOLLY VARDEN — image right -->
+  <section class="section">
+    <div class="map-feature csv2-case csv2-case--flip" data-reveal>
+      <button type="button" class="map-feature-media csv2-case-media" data-lightbox data-full="images/work/vicuna-district-full.avif" data-caption="Dolly Varden Silver — Kitsault Valley district map, BC Golden Triangle">
+        <img src="images/work/vicuna-district.avif" alt="Kitsault Valley district map produced for Dolly Varden Silver in BC's Golden Triangle" loading="lazy" width="1400" height="900">
+        <span class="csv2-case-tag">District maps · investor decks</span>
+      </button>
+      <div class="map-feature-text csv2-case-text">
+        <div class="csv2-case-head">
+          <img src="images/clients/dolly-varden.avif" alt="Dolly Varden Silver" class="csv2-case-logo">
+          <span class="csv2-ticker">TSXV:&nbsp;<b>DV</b></span>
+        </div>
+        <div class="csv2-move">
+          <span class="csv2-move-figures">$65M &rarr; $551M peak</span>
+          <span class="csv2-move-mult">~8&times;</span>
+        </div>
+        <div class="csv2-meta">Kitsault Valley, BC Golden Triangle · Client since Aug 2020</div>
+        <p class="body-text">Nearly six years on the Kitsault Valley silver project &mdash; maps, presentations, and investor communications through every stage of growth. From $65M to a peak of $551M, culminating in a March 2026 merger with Contango Ore to form a new mid-tier silver and gold producer, approved by 98.78% of shareholders.</p>
+        <ul class="csv2-deliver">
+          <li>District maps</li>
+          <li>Presentations</li>
+          <li>Investor comms</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HERCULES METALS — image left -->
+  <section class="section">
+    <div class="map-feature csv2-case" data-reveal>
+      <button type="button" class="map-feature-media csv2-case-media" data-lightbox data-full="images/work/greenstone-belts-full.avif" data-caption="Hercules Metals — porphyry copper discovery section &amp; investor map">
+        <img src="images/work/greenstone-belts.avif" alt="Porphyry copper investor map and cross-section produced for Hercules Metals" loading="lazy" width="1400" height="845">
+        <span class="csv2-case-tag">Maps · cross-sections · booth</span>
+      </button>
+      <div class="map-feature-text csv2-case-text">
+        <div class="csv2-case-head">
+          <img src="images/clients/hercules.avif" alt="Hercules Metals" class="csv2-case-logo">
+          <span class="csv2-ticker">TSXV:&nbsp;<b>BIG</b></span>
+        </div>
+        <div class="csv2-move">
+          <span class="csv2-move-figures">$24M &rarr; $194M</span>
+          <span class="csv2-move-mult">up to 13&times;</span>
+        </div>
+        <div class="csv2-meta">Porphyry copper discovery · Client since 2023 · Peak $319M</div>
+        <p class="body-text">Investor maps, presentation materials, news-release cross-sections, and conference-booth design. What started as a small epithermal silver project turned into a significant porphyry copper discovery in late 2023 &mdash; from $24M to $194M, peaking at $319M during the discovery year. A 13&times; move in twelve months, when the geology hit and the story was ready.</p>
+        <ul class="csv2-deliver">
+          <li>Investor maps</li>
+          <li>Presentations</li>
+          <li>Cross-sections</li>
+          <li>Conference booth</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- LOGO WALL -->
+  <section class="section">
+    <div class="section-label">The clients</div>
+    <h2 class="section-headline">Five stories. One pattern.</h2>
+    <div class="csv2-logowall" data-reveal>
+      <img src="images/clients/montage.avif" alt="Montage Gold" loading="lazy">
+      <img src="images/clients/fireweed.avif" alt="Fireweed Metals" loading="lazy">
+      <img src="images/clients/wrlg.avif" alt="West Red Lake Gold" loading="lazy">
+      <img src="images/clients/dolly-varden.avif" alt="Dolly Varden Silver" loading="lazy">
+      <img src="images/clients/hercules.avif" alt="Hercules Metals" loading="lazy">
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THE TAKEAWAY -->
+  <section class="section">
+    <div class="section-grid">
+      <div data-reveal>
+        <div class="section-label">The Takeaway</div>
+        <h2 class="section-headline">The geology never changed. The comprehension did.</h2>
+      </div>
+      <div data-reveal data-reveal-delay="1">
+        <p class="body-text">We don't move the rocks, and we don't take credit for the drill results. But when a deposit is ready to be seen &mdash; when the assays come back strong and the resource is growing &mdash; the companies that win are the ones whose story is already legible.</p>
+        <p class="body-text">That's what you've just seen above: the maps, the websites, the presentations, the brand &mdash; the entire visual layer that turns invisible geology into capital-markets conviction. We've done it 500+ times across five continents. The understanding changes, and the capital follows.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-headline">Make your deposit legible.</h2>
+    <p class="cta-sub">Tell us about your property and what the market still can't see.</p>
+    <a href="contact.html#book" class="btn-primary">Book a discovery call</a>
+  </section>
+
+  <div class="divider"></div>
+
+</div>
