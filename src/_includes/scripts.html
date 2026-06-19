@@ -229,22 +229,32 @@
       });
     })();
 
-    // Selected-work lightbox
+    // Lightbox — images (selected work / maps) and YouTube videos (films)
     (function () {
       var lb = document.getElementById('work-lightbox');
       if (!lb) return;
       var img = lb.querySelector('.lightbox-img');
+      var vid = lb.querySelector('.lightbox-video');
       var cap = lb.querySelector('.lightbox-cap');
-      function open(full, caption, alt) {
-        img.src = full; img.alt = alt || caption || '';
-        cap.textContent = caption || '';
-        lb.hidden = false; document.body.style.overflow = 'hidden';
+      function show() { lb.hidden = false; document.body.style.overflow = 'hidden'; }
+      function openImg(full, caption, alt) {
+        img.src = full; img.alt = alt || caption || ''; img.hidden = false;
+        vid.hidden = true; vid.innerHTML = '';
+        cap.textContent = caption || ''; show();
       }
-      function close() { lb.hidden = true; img.src = ''; document.body.style.overflow = ''; }
+      function openVideo(id, caption) {
+        vid.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id +
+          '?autoplay=1&rel=0" title="' + (caption || 'Video') +
+          '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+        vid.hidden = false; img.hidden = true; img.src = '';
+        cap.textContent = caption || ''; show();
+      }
+      function close() { lb.hidden = true; img.src = ''; vid.innerHTML = ''; document.body.style.overflow = ''; }
       document.querySelectorAll('[data-lightbox]').forEach(function (el) {
         el.addEventListener('click', function () {
-          var thumb = el.querySelector('img');
-          open(el.getAttribute('data-full'), el.getAttribute('data-caption'), thumb ? thumb.alt : '');
+          var v = el.getAttribute('data-video');
+          if (v) { openVideo(v, el.getAttribute('data-caption')); }
+          else { var t = el.querySelector('img'); openImg(el.getAttribute('data-full'), el.getAttribute('data-caption'), t ? t.alt : ''); }
         });
       });
       lb.addEventListener('click', function (e) {
