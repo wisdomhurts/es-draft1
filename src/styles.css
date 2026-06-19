@@ -1694,11 +1694,16 @@
 
     /* --- ONBOARDING STEPS --- */
     .onboarding-steps {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 32px;
       padding: 48px 0;
+      align-items: start;
     }
+    /* Unstyled decorative timeline track removed from flow so the four steps
+       share one row and stay top-aligned. */
+    .timeline-track { display: none; }
     .onboarding-step {
       position: relative;
     }
