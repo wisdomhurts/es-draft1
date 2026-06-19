@@ -1860,6 +1860,20 @@
       display: block;
     }
 
+    /* --- MOTION (GSAP) --- */
+    /* Hide hero copy until the reveal runs; the head guard removes .motion-prep
+       after 1.5s as a failsafe if GSAP never loads. */
+    .motion-prep .hero .hero-headline,
+    .motion-prep .hero .hero-body,
+    .motion-prep .hero .hero-buttons { opacity: 0; }
+    .hero-headline .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+    .hero-headline .line > span { display: block; will-change: transform; }
+    @media (prefers-reduced-motion: reduce) {
+      .motion-prep .hero .hero-headline,
+      .motion-prep .hero .hero-body,
+      .motion-prep .hero .hero-buttons { opacity: 1; }
+    }
+
 
     /* --- HOVER LIFTS --- */
     .retainer-card {

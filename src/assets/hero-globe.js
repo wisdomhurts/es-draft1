@@ -402,7 +402,78 @@ async function init() {
     touchedPinRef = touchedPin;
   }
 
-  function frame() {
+  // --- Capital-flow arcs: gold great-circle arcs between project pins ---
+  // Thematic nod to "capital flows toward clarity" — light, occluded by the
+  // globe, and skipped entirely on reduced-motion or small screens.
+  const arcsReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const arcsEnabled = !arcsReduced && window.matchMedia('(min-width: 768px)').matches;
+  const arcNodes = pins.map((p) => p.local);
+  const arcGroup = new THREE.Group();
+  group.add(arcGroup);
+  const ARC_COLOR = 0xB8823A;   // Ore gold
+  const MAX_ARCS = 4;
+  const ARC_SEG = 64;
+  const activeArcs = [];
+
+  function spawnArc() {
+    if (arcNodes.length < 2) return null;
+    const a = arcNodes[(Math.random() * arcNodes.length) | 0];
+    let b = arcNodes[(Math.random() * arcNodes.length) | 0];
+    for (let g = 0; g < 6 && b === a; g++) b = arcNodes[(Math.random() * arcNodes.length) | 0];
+    if (a === b) return null;
+    const va = a.clone().normalize();
+    const vb = b.clone().normalize();
+    const omega = Math.acos(Math.min(1, Math.max(-1, va.dot(vb))));
+    if (omega < 0.2) return null;            // endpoints too close — skip
+    const sinO = Math.sin(omega);
+    const lift = 0.12 + 0.22 * (omega / Math.PI);   // longer spans arc higher
+    const positions = new Float32Array((ARC_SEG + 1) * 3);
+    for (let i = 0; i <= ARC_SEG; i++) {
+      const t = i / ARC_SEG;
+      const s1 = Math.sin((1 - t) * omega) / sinO;  // slerp weights
+      const s2 = Math.sin(t * omega) / sinO;
+      const x = va.x * s1 + vb.x * s2;
+      const y = va.y * s1 + vb.y * s2;
+      const z = va.z * s1 + vb.z * s2;
+      const len = Math.hypot(x, y, z) || 1;
+      const h = 1.004 + lift * Math.sin(Math.PI * t);
+      positions[i * 3] = (x / len) * h;
+      positions[i * 3 + 1] = (y / len) * h;
+      positions[i * 3 + 2] = (z / len) * h;
+    }
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geom.setDrawRange(0, 0);
+    const mat = new THREE.LineBasicMaterial({ color: ARC_COLOR, transparent: true, opacity: 0 });
+    const line = new THREE.Line(geom, mat);
+    arcGroup.add(line);
+    return { line, geom, mat, t0: performance.now(), dur: 2200 + Math.random() * 1600 };
+  }
+
+  function updateArcs(now) {
+    if (!arcsEnabled) return;
+    if (activeArcs.length < MAX_ARCS && Math.random() < 0.03) {
+      const arc = spawnArc();
+      if (arc) activeArcs.push(arc);
+    }
+    for (let i = activeArcs.length - 1; i >= 0; i--) {
+      const arc = activeArcs[i];
+      const p = (now - arc.t0) / arc.dur;        // 0..1 lifecycle
+      if (p >= 1) {
+        arcGroup.remove(arc.line);
+        arc.geom.dispose();
+        arc.mat.dispose();
+        activeArcs.splice(i, 1);
+        continue;
+      }
+      const drawT = Math.min(1, p / 0.5);         // draw on over first half
+      arc.geom.setDrawRange(0, Math.floor((ARC_SEG + 1) * drawT));
+      arc.mat.opacity = p < 0.5 ? 0.6 * drawT : 0.6 * (1 - (p - 0.5) / 0.5);
+    }
+  }
+
+  function frame(now) {
+    const t = now || performance.now();
     controls.update();
 
     // Repulsion on land/ocean dots only when hovering AND not dragging
@@ -422,6 +493,7 @@ async function init() {
         (targetRotateSpeed - controls.autoRotateSpeed) * ROTATE_SPEED_LERP;
     }
 
+    updateArcs(t);
     renderer.render(scene, camera);
     requestAnimationFrame(frame);
   }
