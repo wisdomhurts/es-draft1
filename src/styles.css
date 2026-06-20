@@ -2185,6 +2185,16 @@
       z-index: -1;
       pointer-events: none;
     }
+    .footer-bgwrap {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      /* fade the animation in from the top so it dissolves into the section above */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+    }
     .footer-bg {
       position: absolute;
       inset: 0;
@@ -2192,12 +2202,14 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.65;
-      /* fade the animation in from the top so it dissolves into the section above */
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+    }
+    .footer-bg--b { opacity: 0; }
+    /* legibility scrim — washes the footage toward quartz so footer text stays clearly readable */
+    .footer-bgwrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(244, 241, 236, 0.46);
     }
 
     .footer-inner {

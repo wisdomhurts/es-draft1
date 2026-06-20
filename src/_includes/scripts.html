@@ -262,6 +262,33 @@
       });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
     })();
+
+    // Footer background: crossfade two half-offset copies for a seamless loop
+    (function () {
+      var a = document.querySelector('[data-footerbg-a]');
+      var b = document.querySelector('[data-footerbg-b]');
+      if (!a || !b) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        b.style.display = 'none'; a.style.opacity = 1;
+        a.removeAttribute('autoplay'); try { a.pause(); } catch (e) {}
+        return;
+      }
+      var dur = 8;
+      function start() {
+        dur = (a.duration && isFinite(a.duration)) ? a.duration : 8;
+        try { b.currentTime = dur / 2; } catch (e) {}
+        var p = a.play(); if (p && p.catch) p.catch(function () {});
+        var q = b.play(); if (q && q.catch) q.catch(function () {});
+        requestAnimationFrame(tick);
+      }
+      function tick() {
+        var oa = Math.pow(Math.sin(Math.PI * ((a.currentTime || 0) / dur)), 2);
+        a.style.opacity = oa;
+        b.style.opacity = 1 - oa;
+        requestAnimationFrame(tick);
+      }
+      if (a.readyState >= 1) start(); else a.addEventListener('loadedmetadata', start);
+    })();
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>

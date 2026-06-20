@@ -1,7 +1,9 @@
     <footer class="footer">
-      <video class="footer-bg" autoplay muted loop playsinline aria-hidden="true">
-        <source src="/images/footer-bg.mp4" type="video/mp4">
-      </video>
+      {% assign fbg = footerbg | default: 'relief' %}
+      <div class="footer-bgwrap" aria-hidden="true">
+        <video class="footer-bg" data-footerbg-a autoplay muted loop playsinline preload="auto"><source src="/images/footer/{{ fbg }}.mp4" type="video/mp4"></video>
+        <video class="footer-bg footer-bg--b" data-footerbg-b autoplay muted loop playsinline preload="auto"><source src="/images/footer/{{ fbg }}.mp4" type="video/mp4"></video>
+      </div>
 
       <div class="footer-inner">
 
