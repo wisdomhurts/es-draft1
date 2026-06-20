@@ -1,9 +1,5 @@
     <footer class="footer">
-      {% assign fbg = footerbg | default: 'relief' %}
-      <div class="footer-bgwrap" aria-hidden="true">
-        <video class="footer-bg" data-footerbg-a autoplay muted loop playsinline preload="auto"><source src="/images/footer/{{ fbg }}.mp4" type="video/mp4"></video>
-        <video class="footer-bg footer-bg--b" data-footerbg-b autoplay muted loop playsinline preload="auto"><source src="/images/footer/{{ fbg }}.mp4" type="video/mp4"></video>
-      </div>
+      <canvas class="footer-canvas" aria-hidden="true"></canvas>
 
       <div class="footer-inner">
 
