@@ -76,6 +76,30 @@
     });
   }
 
+  // --- NGEX district map: choreographed layer reveal (dots -> belts -> cities -> labels) ---
+  var mapSvg = document.querySelector('.mapanim');
+  if (mapSvg && window.ScrollTrigger) {
+    var maDots = mapSvg.querySelectorAll('.ma-dot');
+    var maBelts = mapSvg.querySelectorAll('.ma-belt');
+    var maBorder = mapSvg.querySelector('.ma-border');
+    var maCities = mapSvg.querySelectorAll('.ma-city');
+    var maLabels = mapSvg.querySelectorAll('.ma-label');
+    gsap.set(maDots, { opacity: 0, scale: 0.2 });
+    gsap.set(maBelts, { opacity: 0, scale: 0.96 });
+    gsap.set(maBorder, { opacity: 0 });
+    gsap.set(maCities, { opacity: 0, scale: 0.2 });
+    gsap.set(maLabels, { opacity: 0, y: 6 });
+    var mtl = gsap.timeline({ paused: true, defaults: { ease: 'power2.out' } });
+    mtl.to(maDots, { opacity: 1, scale: 1, duration: 0.6, stagger: 0.07, ease: 'back.out(1.7)' })
+      .to(maBelts, { opacity: 1, scale: 1, duration: 1.1, stagger: 0.25 }, '-=0.05')
+      .to(maBorder, { opacity: 0.45, duration: 1.0 }, '<')
+      .to(maCities, { opacity: 1, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(2)' }, '-=0.5')
+      .to(maLabels, { opacity: 1, y: 0, duration: 0.6, stagger: 0.06 }, '-=0.2');
+    window.ScrollTrigger.create({ trigger: mapSvg, start: 'top 82%', once: true, onEnter: function () { mtl.play(); } });
+    var maPulse = mapSvg.querySelector('.ma-ngex-pulse');
+    if (maPulse) gsap.fromTo(maPulse, { attr: { r: 7 }, opacity: 0.55 }, { attr: { r: 15 }, opacity: 0, duration: 2.6, repeat: -1, ease: 'power1.out', delay: 2.2 });
+  }
+
   // Split an element's innerHTML into <br>-delimited lines, each wrapped for a
   // clip reveal: .line (overflow hidden) > span (translated).
   function splitLines(el) {

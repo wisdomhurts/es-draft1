@@ -29,10 +29,77 @@ description: "The premium investor relations and visualization partner that tran
           <p class="body-text">A glimpse of how we frame a project for the market &mdash; NGEX&rsquo;s Vicu&ntilde;a copper-gold district, brought to life.</p>
           <a href="locators-area-plays.html" class="btn-secondary" style="margin-top: 8px;">Explore our maps</a>
         </div>
-        <div class="mapfilm-media">
-          <video class="mapfilm-video" autoplay muted loop playsinline poster="images/work/vicuna-district.jpg">
-            <source src="images/work/ngex-map-intro.mp4" type="video/mp4">
-          </video>
+        <div class="mapfilm-media mapfilm-svg">
+          <svg class="mapanim" viewBox="0 0 760 580" role="img" aria-label="Animated location map of the Vicuña copper-gold district, Chile and Argentina">
+            <defs>
+              <filter id="ma-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+            </defs>
+
+            <!-- BELTS (porphyry) + border -->
+            <g class="ma-belts" fill="#B8823A" opacity="0.16" filter="url(#ma-soft)">
+              <path class="ma-belt" d="M602,70 C630,115 628,165 616,214 C606,256 598,304 586,336 C574,300 568,250 574,202 C580,150 582,112 602,70 Z"/>
+              <path class="ma-belt" d="M472,408 C494,442 492,492 484,524 C478,544 472,556 467,560 C457,536 450,500 455,468 C460,436 460,424 472,408 Z"/>
+            </g>
+            <path class="ma-border" d="M452,44 C470,150 446,250 470,340 C492,424 470,500 498,560" fill="none" stroke="#5A5F63" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+
+            <!-- DOTS (deposits) -->
+            <g class="ma-dots">
+              <circle class="ma-dot" cx="616" cy="96"  r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="590" cy="122" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="626" cy="142" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="600" cy="166" r="4.5" fill="#9AA0A6"/>
+              <circle class="ma-dot" cx="612" cy="184" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="600" cy="232" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="585" cy="262" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="522" cy="296" r="4.5" fill="#1A101F"/>
+              <circle class="ma-dot" cx="516" cy="342" r="4.5" fill="#B8823A"/>
+              <circle class="ma-dot" cx="482" cy="396" r="4.5" fill="#2F6DB3"/>
+              <circle class="ma-dot" cx="456" cy="456" r="4.5" fill="#9AA0A6"/>
+              <circle class="ma-dot" cx="492" cy="470" r="4.5" fill="#1A101F"/>
+              <circle class="ma-dot" cx="452" cy="500" r="4.5" fill="#9AA0A6"/>
+              <circle class="ma-dot" cx="478" cy="508" r="4.5" fill="#9AA0A6"/>
+              <circle class="ma-dot" cx="468" cy="540" r="4.5" fill="#2F6DB3"/>
+              <!-- NGEX / Los Helados highlight -->
+              <g class="ma-dot ma-ngex">
+                <circle class="ma-ngex-pulse" cx="456" cy="300" r="7" fill="none" stroke="#B8823A" stroke-width="1.5"/>
+                <circle cx="456" cy="300" r="6" fill="#B8823A"/>
+              </g>
+            </g>
+
+            <!-- CITIES -->
+            <g class="ma-cities" fill="#5A5F63">
+              <rect class="ma-city" x="336" y="146" width="7" height="7"/>
+              <rect class="ma-city" x="372" y="202" width="7" height="7"/>
+              <rect class="ma-city" x="286" y="540" width="7" height="7"/>
+            </g>
+
+            <!-- LABELS -->
+            <g class="ma-labels">
+              <text class="ma-label ma-title" x="40" y="56">VICUÑA DISTRICT</text>
+              <text class="ma-label ma-sub" x="41" y="76">A world-class copper-gold belt</text>
+
+              <text class="ma-label ma-belt-label" x="636" y="104">Maricunga Belt</text>
+              <text class="ma-label ma-belt-label" x="404" y="566">El Indio Belt</text>
+
+              <text class="ma-label ma-deposit ma-deposit-ngex" x="444" y="304" text-anchor="end">NGEX · Los Helados</text>
+              <text class="ma-label ma-city-label" x="536" y="292">Caserones</text>
+
+              <text class="ma-label ma-city-label" x="336" y="140">Copiapó</text>
+              <text class="ma-label ma-city-label" x="300" y="552">La Serena</text>
+
+              <text class="ma-label ma-country" x="392" y="318">CHILE</text>
+              <text class="ma-label ma-country" x="560" y="430">ARGENTINA</text>
+
+              <g class="ma-label ma-compass">
+                <path d="M722,40 L722,62 M722,40 L717,49 M722,40 L727,49" stroke="#5A5F63" stroke-width="1.2" fill="none"/>
+                <text class="ma-n" x="722" y="34">N</text>
+              </g>
+              <g class="ma-label ma-scale">
+                <line x1="624" y1="552" x2="700" y2="552" stroke="#5A5F63" stroke-width="1.5"/>
+                <text class="ma-scaletxt" x="624" y="546">100 km</text>
+              </g>
+            </g>
+          </svg>
         </div>
       </div>
     </section>

@@ -2116,6 +2116,20 @@
     .mapfilm-video { width: 100%; height: auto; display: block; }
     @media (max-width: 900px) { .mapfilm-grid { grid-template-columns: 1fr; gap: 28px; } }
 
+    /* NGEX animated SVG map */
+    .mapfilm-svg { background: var(--quartz); }
+    .mapanim { width: 100%; height: auto; display: block; }
+    .mapanim text { font-family: var(--font-sans); fill: var(--graphite); }
+    .ma-title { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.01em; }
+    .ma-sub { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.16em; fill: var(--muted); }
+    .ma-belt-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em; fill: var(--ore); }
+    .ma-deposit { font-size: 11px; font-weight: 600; }
+    .ma-city-label { font-size: 10px; fill: var(--slate); }
+    .ma-country { font-family: var(--font-serif); font-style: italic; font-size: 12px; fill: var(--muted); letter-spacing: 0.06em; }
+    .ma-n { font-family: var(--font-mono); font-size: 9px; fill: var(--slate); text-anchor: middle; }
+    .ma-scaletxt { font-family: var(--font-mono); font-size: 8px; fill: var(--muted); }
+    .ma-dot, .ma-city, .ma-belt { transform-box: fill-box; transform-origin: center; }
+
     /* --- SITE GALLERY (webflow / wordpress pages) --- */
     .site-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 40px; }
     .site-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
