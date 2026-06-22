@@ -2323,14 +2323,31 @@
     }
     .footer-col ul a,
     .footer-contact ul a {
+      position: relative;
+      display: inline-block;
       font-size: 13px;
       color: var(--muted);
       text-decoration: none;
       line-height: 1.5;
+      padding-bottom: 2px;
       transition: color 0.2s var(--ease-out-soft);
+    }
+    /* Same left-to-right ore underline as the main nav */
+    .footer-col ul a::after,
+    .footer-contact ul a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--ore);
+      transition: right 0.32s var(--ease-out-quart);
     }
     .footer-col ul a:hover,
     .footer-contact ul a:hover { color: var(--graphite); }
+    .footer-col ul a:hover::after,
+    .footer-contact ul a:hover::after { right: 0; }
 
     /* --- hairline --- */
     .footer-rule {
@@ -2357,13 +2374,27 @@
       gap: 20px;
     }
     .footer-legal a {
+      position: relative;
+      display: inline-block;
       font-size: 11px;
       color: var(--muted);
       text-decoration: none;
       letter-spacing: 0.02em;
+      padding-bottom: 2px;
       transition: color 0.2s var(--ease-out-soft);
     }
+    .footer-legal a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--ore);
+      transition: right 0.32s var(--ease-out-quart);
+    }
     .footer-legal a:hover { color: var(--graphite); }
+    .footer-legal a:hover::after { right: 0; }
 
     @media (max-width: 1024px) {
       .footer-top {

@@ -12,6 +12,7 @@ void main() {
 }`;
 
 const fragSrc = `
+#extension GL_OES_standard_derivatives : enable
 precision highp float;
 varying vec2 v_uv;
 uniform float u_time;
@@ -48,21 +49,26 @@ void main() {
   // so the contours read as a map, not pebbles.
   vec2 p = vec2(v_uv.x * (u_resolution.x / u_resolution.y) * 0.85,
                 v_uv.y * 1.55);
-  float t = u_time * 0.030;
+  float t = u_time * 0.020;   // slower drift — a touch more meditative
 
   // Single low-frequency octave — concentric, breathing rings.
   // Tiny second octave for slow organic variation without scribble.
   float n  = snoise(p * 1.05 + vec2(t, t * 0.55));
         n += snoise(p * 2.1  + vec2(-t * 0.8, t * 0.3)) * 0.12;
 
-  // Sparser band count + gentle falloff = elegant contour strokes
+  // Contour bands. Distance to the nearest isoline, drawn with a
+  // resolution-independent (fwidth) stroke so lines stay crisp at any
+  // size/DPR instead of aliasing where the bands compress.
   float bandPos = n * 3.4 - 0.5;
-  float bands   = abs(fract(bandPos) - 0.5);
-  float line    = 1.0 - smoothstep(0.006, 0.028, bands);
+  float d       = abs(fract(bandPos) - 0.5);
+  float w       = fwidth(bandPos) * 1.1;
+  float line    = 1.0 - smoothstep(0.0, w, d);
 
-  // Every 15th band gets the ore tint — a quiet accent on the map.
+  // One isoline in every cycle wears the ore color — a deliberate accent
+  // rather than a stray stroke. Every 7th band so an ore contour is
+  // reliably in view even in a short footer.
   float bandIdx = floor(bandPos);
-  float oreBand = step(0.5, 1.0 - abs(mod(bandIdx, 15.0)));
+  float oreBand = step(0.5, 1.0 - abs(mod(bandIdx, 7.0)));
 
   // Warm paper base (quartz, a hair darker than --quartz to read behind content)
   vec3 base  = vec3(0.949, 0.937, 0.917);
@@ -71,9 +77,14 @@ void main() {
   // Ore accent — brand --ore (#B8823A)
   vec3 oreC   = vec3(0.722, 0.510, 0.227);
   vec3 lineC  = mix(slateC, oreC, oreBand);
-  // Ore lines get a touch more opacity so the accent reads
-  float lineStrength = mix(0.17, 0.45, oreBand);
+  // Ore lines get noticeably more presence so the accent clearly reads
+  float lineStrength = mix(0.17, 0.62, oreBand);
   vec3 col   = mix(base, lineC, line * lineStrength);
+
+  // Soft ore halo around the accent isoline — makes it feel intentional,
+  // like a marked elevation on a survey map.
+  float glow = (1.0 - smoothstep(0.0, w * 6.0, d)) * oreBand;
+  col = mix(col, oreC, glow * 0.07);
 
   // Barely-there horizontal wash — slightly brighter toward the right edge
   col += smoothstep(0.0, 1.0, v_uv.x) * 0.012;
@@ -92,6 +103,9 @@ function mount(canvas) {
     canvas.style.display = 'none';
     return;
   }
+  // fwidth() (crisp, alias-free contours) needs this extension in WebGL1.
+  // Where it's unavailable we fall back to a fixed stroke width below.
+  const hasDerivatives = gl.getExtension('OES_standard_derivatives');
 
   function compile(type, src) {
     const s = gl.createShader(type);
@@ -99,8 +113,14 @@ function mount(canvas) {
     gl.compileShader(s);
     return s;
   }
+  let frag = fragSrc;
+  if (!hasDerivatives) {
+    frag = frag
+      .replace('#extension GL_OES_standard_derivatives : enable\n', '')
+      .replace('fwidth(bandPos) * 1.1', '0.018');
+  }
   const vs = compile(gl.VERTEX_SHADER, vertSrc);
-  const fs = compile(gl.FRAGMENT_SHADER, fragSrc);
+  const fs = compile(gl.FRAGMENT_SHADER, frag);
   const prog = gl.createProgram();
   gl.attachShader(prog, vs);
   gl.attachShader(prog, fs);
