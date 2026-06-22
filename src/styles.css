@@ -2460,3 +2460,92 @@
       .onboarding-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
       .onboarding-step + .onboarding-step::before { display: none; }
     }
+
+    /* ============================================================
+       MOTION LAYER — institutional, restrained, reduced-motion safe.
+       Section-label hairline draw-in, divider draw-in, animated line
+       icons, and a couple of micro-interactions. Anything that moves
+       is gated behind prefers-reduced-motion: no-preference.
+       ============================================================ */
+
+    /* Leading ore hairline that draws in above each section label */
+    .section-label::before {
+      content: "";
+      display: block;
+      width: 28px;
+      height: 2px;
+      margin-bottom: 12px;
+      background: var(--ore);
+      transform-origin: left center;
+    }
+    /* Centre the tick where the label itself is centred */
+    .cta-section .section-label::before,
+    [style*="text-align: center"] .section-label::before {
+      margin-left: auto;
+      margin-right: auto;
+      transform-origin: center;
+    }
+
+    /* Dividers grow from the left; visible by default so they never
+       disappear if JS/observer is absent. The .is-in class only replays
+       the entrance as the element scrolls into view. */
+    .divider { transform-origin: left center; }
+    @media (prefers-reduced-motion: no-preference) {
+      .section-label.is-in::before { animation: esGrowX 0.7s var(--ease-out-quart) both; }
+      .divider.is-in { animation: esGrowX 0.9s var(--ease-out-quart) both; }
+
+      /* Logo mark gives a quiet quarter-turn on hover */
+      .nav-logo-icon svg { transition: transform 0.55s var(--ease-out-quart); }
+      .nav-logo:hover .nav-logo-icon svg { transform: rotate(45deg); }
+    }
+    @keyframes esGrowX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* --- Animated line icons --- */
+    .es-icon { width: 20px; height: 20px; display: block; color: var(--ore); }
+    .es-icon path,
+    .es-icon polyline,
+    .es-icon line,
+    .es-icon rect {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .es-icon .es-pulse,
+    .es-icon .es-dot-travel { fill: currentColor; stroke: none; }
+    /* Badge that holds an icon instead of a number */
+    .principle-num.es-icon-badge { color: var(--ore); background: rgba(184,130,58,0.10); }
+
+    /* Icons are fully visible by default (dash length exceeds any path,
+       so no gaps). .is-in replays a one-shot draw-in. */
+    .es-icon [data-draw] { stroke-dasharray: 120; stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: no-preference) {
+      .es-icon.is-in [data-draw] { animation: esDraw 1s var(--ease-out-quart) both; }
+      /* Idle micro-motion, only once the icon has drawn in */
+      .es-icon.is-in .es-pulse      { animation: esPulse 2.8s ease-in-out infinite; transform-origin: center; }
+      .es-icon.is-in .es-dot-travel { animation: esPulse 3.4s ease-in-out infinite; }
+      .es-icon.is-in .es-wave       { animation: esPulse 2.6s ease-in-out infinite; }
+      .es-icon.is-in .es-send       { animation: esSend 3.2s ease-in-out infinite; }
+    }
+    @keyframes esPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+    @keyframes esSend  { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -2px); } }
+    @keyframes esDraw  { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+
+    /* --- Team portraits: still by default, loop on hover --- */
+    .team-photo { position: relative; overflow: hidden; }
+    .team-photo video.team-loop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s var(--ease-out-quart);
+      pointer-events: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .team-lead:hover .team-photo video.team-loop,
+      .team-grid-member:hover .team-photo video.team-loop,
+      .team-member:hover .team-photo video.team-loop { opacity: 1; }
+    }
