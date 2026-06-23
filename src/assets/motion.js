@@ -1,4 +1,4 @@
-/* GSAP motion layer — hero line reveal + magnetic CTAs.
+/* GSAP motion layer — hero line reveal + scroll reveals.
    Fully gated on prefers-reduced-motion; degrades to plain visible content
    if GSAP fails to load. */
 (function () {
@@ -34,20 +34,8 @@
     if (btns) tl.to(btns, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6');
   }
 
-  // --- Magnetic CTAs (fine-pointer / hover devices only) ---
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function (btn) {
-      if (getComputedStyle(btn).display === 'inline') btn.style.display = 'inline-block';
-      var xTo = gsap.quickTo(btn, 'x', { duration: 0.45, ease: 'power3.out' });
-      var yTo = gsap.quickTo(btn, 'y', { duration: 0.45, ease: 'power3.out' });
-      btn.addEventListener('pointermove', function (e) {
-        var r = btn.getBoundingClientRect();
-        xTo((e.clientX - (r.left + r.width / 2)) * 0.3);
-        yTo((e.clientY - (r.top + r.height / 2)) * 0.4);
-      });
-      btn.addEventListener('pointerleave', function () { xTo(0); yTo(0); });
-    });
-  }
+  // Magnetic CTA hover removed — buttons now use a restrained, institutional
+  // hover handled entirely in CSS (no cursor-tracking motion).
 
   // --- Scroll reveals (section headlines, service rows, case visuals) ---
   if (window.ScrollTrigger) {

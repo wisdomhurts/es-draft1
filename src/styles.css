@@ -743,19 +743,11 @@
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s var(--ease-out-soft),
-                  transform 0.2s var(--ease-out-soft),
-                  box-shadow 0.2s var(--ease-out-soft);
-      will-change: transform;
+      transition: background 0.25s var(--ease-out-soft);
     }
 
-    .btn-primary:hover {
-      background: var(--basalt);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(26,16,31,0.12),
-                  0 2px 4px  rgba(26,16,31,0.06);
-    }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:hover { background: var(--basalt); }
+    .btn-primary:active { background: var(--basalt); }
 
     .btn-secondary {
       display: inline-block;
@@ -769,18 +761,17 @@
       border: 1.5px solid var(--navy);
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s var(--ease-out-soft),
-                  transform 0.2s var(--ease-out-soft),
-                  border-color 0.2s var(--ease-out-soft);
-      will-change: transform;
+      transition: background 0.25s var(--ease-out-soft),
+                  color 0.25s var(--ease-out-soft),
+                  border-color 0.25s var(--ease-out-soft);
     }
 
     .btn-secondary:hover {
-      background: var(--surface);
-      transform: translateY(-1px);
-      border-color: var(--ore);
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
     }
-    .btn-secondary:active { transform: translateY(0); }
+    .btn-secondary:active { background: var(--navy); color: var(--white); }
 
     /* --- TWO-COLUMN SECTION --- */
     .section {
