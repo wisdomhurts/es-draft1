@@ -274,7 +274,7 @@
       vertical-align: middle;
       background: var(--ore);
       color: var(--white) !important;
-      padding: 5px 20px 15px;
+      padding: 8px 16px 18px;
       border: none;
       border-radius: 6px;
       font-size: 14px;
@@ -1290,7 +1290,7 @@
     /* --- TEAM LEADERSHIP --- */
     .team-leadership {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 10px;
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
@@ -2532,7 +2532,10 @@
     @keyframes esSend  { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -2px); } }
     @keyframes esDraw  { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
 
-    /* --- Team portraits: still by default, loop on hover --- */
+    /* --- Team portraits: the video shows its own first frame (set as the
+       poster) as the still image. It plays the loop on hover and freezes on
+       whatever frame it was on when the mouse leaves — so there is never a
+       jump back to a different photo. --- */
     .team-photo { position: relative; overflow: hidden; }
     .team-photo video.team-loop {
       position: absolute;
@@ -2540,12 +2543,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.5s var(--ease-out-quart);
+      display: block;
       pointer-events: none;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .team-lead:hover .team-photo video.team-loop,
-      .team-grid-member:hover .team-photo video.team-loop,
-      .team-member:hover .team-photo video.team-loop { opacity: 1; }
     }
