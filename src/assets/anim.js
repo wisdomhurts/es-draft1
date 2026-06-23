@@ -5,7 +5,7 @@
 // immediately and nothing animates.
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els = document.querySelectorAll('.section-label, .divider, .es-icon');
+  var els = document.querySelectorAll('.section-label, .divider, .es-icon, .why-step');
   if (!els.length) return;
 
   if (reduce || !('IntersectionObserver' in window)) {

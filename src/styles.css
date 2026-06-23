@@ -274,7 +274,7 @@
       vertical-align: middle;
       background: var(--ore);
       color: var(--white) !important;
-      padding: 8px 16px 18px;
+      padding: 13px 16px;
       border: none;
       border-radius: 6px;
       font-size: 14px;
@@ -2531,6 +2531,71 @@
     @keyframes esPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
     @keyframes esSend  { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -2px); } }
     @keyframes esDraw  { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+
+    /* --- WHY WE EXIST — staggered, numbered editorial steps --- */
+    .why-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .why-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 36px;
+      max-width: 600px;
+      position: relative;
+    }
+    /* Stagger: even steps slide to the right edge and mirror */
+    .why-step:nth-child(even) {
+      flex-direction: row-reverse;
+      margin-left: auto;
+      text-align: right;
+    }
+    .why-step-num {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      font-weight: 300;
+      line-height: 0.78;
+      letter-spacing: -0.03em;
+      color: var(--ore);
+      flex-shrink: 0;
+    }
+    .why-step-title {
+      font-family: var(--font-serif);
+      font-size: 27px;
+      font-weight: 300;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: var(--graphite);
+      margin: 6px 0 12px;
+    }
+    .why-step-text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--body);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .why-step.is-in { animation: whyStepIn 0.75s var(--ease-out-quart) both; }
+    }
+    @keyframes whyStepIn {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (max-width: 768px) {
+      .why-steps { gap: 48px; }
+      .why-step,
+      .why-step:nth-child(even) {
+        flex-direction: row;
+        text-align: left;
+        margin-left: 0;
+        max-width: 100%;
+        gap: 20px;
+      }
+      .why-step-num { font-size: 56px; }
+      .why-step-title { font-size: 22px; }
+    }
 
     /* --- Team portraits: the video shows its own first frame (set as the
        poster) as the still image. It plays the loop on hover and freezes on
