@@ -15,7 +15,13 @@ import subprocess
 import os
 from datetime import datetime
 
-HTML_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'public', 'clients.html')
+# Source of truth is src/ (Eleventy input). Writing to public/ would be
+# clobbered by the next `npm run build`, so we edit the source pages and let
+# the build/deploy carry the change. Both the Clients table total and the
+# home-page market-cap stat are kept in lockstep here so they can never drift.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+HTML_PATH = os.path.join(ROOT, 'src', 'clients.html')
+INDEX_PATH = os.path.join(ROOT, 'src', 'index.html')
 
 def parse_rows(html):
     """Extract all table rows with their data."""
@@ -134,11 +140,35 @@ def apply_updates(html, updates):
             elif 'M' in s: total += v * 1e6
             elif 'K' in s: total += v * 1e3
 
-    new_total = f"${total/1e9:.0f}B+"
+    mcap_str = f"{total/1e9:.0f}"
+    new_total = f"${mcap_str}B+"
     html = re.sub(r'>\$\d+B\+<', f'>{new_total}<', html)
 
     print(f"Updated {count} rows. New total market cap: {new_total}")
-    return html
+    return html, mcap_str
+
+def update_home_stat(mcap_str):
+    """Keep the home-page market-cap stat in lockstep with the Clients total.
+
+    The home stat is a count-up element; we rewrite both the animated target
+    (data-count-to) and the static fallback text so JS and no-JS agree.
+    """
+    if not os.path.exists(INDEX_PATH):
+        print(f"Home page not found at {INDEX_PATH}; skipping home stat sync")
+        return
+    with open(INDEX_PATH, 'r', encoding='utf-8') as f:
+        home = f.read()
+    # Only the market-cap stat carries data-count-suffix="B+", so this is unambiguous.
+    pattern = r'(data-count-to=")\d+("[^>]*data-count-suffix="B\+">)\$\d+B\+(</div>)'
+    repl = rf'\g<1>{mcap_str}\g<2>${mcap_str}B+\g<3>'
+    home, n = re.subn(pattern, repl, home)
+    if n:
+        with open(INDEX_PATH, 'w', encoding='utf-8') as f:
+            f.write(home)
+        print(f"Synced home market-cap stat to ${mcap_str}B+ ({n} match)")
+    else:
+        print("WARNING: home market-cap stat not found — check src/index.html markup")
+
 
 def main():
     print(f"=== Client Quote Update: {datetime.now().strftime('%Y-%m-%d %H:%M')} ===")
@@ -149,10 +179,11 @@ def main():
     updates = fetch_quotes(html)
 
     if updates:
-        html = apply_updates(html, updates)
+        html, mcap_str = apply_updates(html, updates)
         with open(HTML_PATH, 'w', encoding='utf-8') as f:
             f.write(html)
         print(f"Saved {HTML_PATH}")
+        update_home_stat(mcap_str)
     else:
         print("No updates to apply")
 
