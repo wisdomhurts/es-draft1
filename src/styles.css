@@ -578,6 +578,7 @@
     .hero-content > .hero-label,
     .hero-content > .hero-headline,
     .hero-content > .hero-body,
+    .hero-content > .hero-film-link,
     .hero-content > .hero-buttons > a,
     .hero-content > .hero-buttons > button {
       pointer-events: auto;
