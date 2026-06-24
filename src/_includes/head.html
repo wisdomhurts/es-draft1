@@ -3,6 +3,7 @@
 <script>(function(){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var r=document.documentElement;r.classList.add('motion-prep');setTimeout(function(){r.classList.remove('motion-prep');},1500);}}catch(e){}})();</script>
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
+{% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 <meta property="og:title" content="{{ title }}">
 <meta property="og:description" content="{{ description }}">
