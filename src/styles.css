@@ -896,12 +896,12 @@
     }
     .case-hero-headline {
       font-family: var(--font-serif);
-      font-size: clamp(44px, 5.2vw, 76px);
+      font-size: clamp(40px, 4.6vw, 66px);
       font-weight: 300;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--graphite);
-      max-width: 18ch;
+      max-width: none;
       margin: 12px 0 28px;
     }
     .case-hero-headline em {
